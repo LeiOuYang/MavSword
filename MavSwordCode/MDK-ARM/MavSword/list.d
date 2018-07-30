@@ -1,0 +1,13 @@
+mavsword\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/list.c
+mavsword\list.o: D:\APP\Major\keil513\ARM\ARMCC\Bin\..\include\stdlib.h
+mavsword\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+mavsword\list.o: D:\APP\Major\keil513\ARM\ARMCC\Bin\..\include\stddef.h
+mavsword\list.o: D:\APP\Major\keil513\ARM\ARMCC\Bin\..\include\stdint.h
+mavsword\list.o: ../Inc/FreeRTOSConfig.h
+mavsword\list.o: ../Inc/main.h
+mavsword\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+mavsword\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+mavsword\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+mavsword\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3/portmacro.h
+mavsword\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+mavsword\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h

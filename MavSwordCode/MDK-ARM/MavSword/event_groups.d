@@ -1,0 +1,16 @@
+mavsword\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
+mavsword\event_groups.o: D:\APP\Major\keil513\ARM\ARMCC\Bin\..\include\stdlib.h
+mavsword\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+mavsword\event_groups.o: D:\APP\Major\keil513\ARM\ARMCC\Bin\..\include\stddef.h
+mavsword\event_groups.o: D:\APP\Major\keil513\ARM\ARMCC\Bin\..\include\stdint.h
+mavsword\event_groups.o: ../Inc/FreeRTOSConfig.h
+mavsword\event_groups.o: ../Inc/main.h
+mavsword\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+mavsword\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+mavsword\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+mavsword\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3/portmacro.h
+mavsword\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+mavsword\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+mavsword\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+mavsword\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
+mavsword\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h

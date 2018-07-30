@@ -1,0 +1,43 @@
+﻿Field=#~Integer~#~50|Field=Description~String~Description~100|Field=Comment~String~Comment~100|Field=Designator~String~Designator~100|Field=Footprint~String~Footprint~100|Field=Quantity~Integer~Quantity~100|ReportField=Currency~<none>|ReportField=ProductionQuantity~1|ReportField=ProjectFileName~Maverick.PrjPCB|ReportField=ProjectFullPath~C:\Users\Awesome\Desktop\win10桌面备份\Sword\Maverick.PrjPCB|ReportField=Title~Bill of Materials For Project [Maverick.PrjPCB] (No PCB Document Selected)|ReportField=TotalQuantity~110|ReportField=ReportTime~19:26:32|ReportField=ReportDate~2018/7/10|ReportField=ReportDateTime~2018/7/10 19:26:32|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=Address1~|ReportField=Address2~|ReportField=Address3~|ReportField=Address4~|ReportField=Application_BuildNumber~|ReportField=ApprovedBy~|ReportField=Author~AwesomeOY|ReportField=CheckedBy~|ReportField=CompanyName~|ReportField=CurrentDate~2018/7/10|ReportField=CurrentTime~19:26:04|ReportField=Date~|ReportField=DocumentFullPathAndName~C:\Users\Awesome\Desktop\win10桌面备份\Sword\Maverick_V1.0.SchDoc|ReportField=DocumentName~Maverick_V1.0.SchDoc|ReportField=DocumentNumber~1|ReportField=DrawnBy~|ReportField=Engineer~|ReportField=ImagePath~|ReportField=ModifiedDate~2018/7/10|ReportField=Organization~|ReportField=ProjectName~Maverick.PrjPCB|ReportField=Revision~V1.0|ReportField=Rule~|ReportField=SheetNumber~1|ReportField=SheetTotal~MavSword|ReportField=Time~|ReportField=Title~MavSword|ReportField=DataSourceFileName~Maverick.PrjPCB|ReportField=DataSourceFullPath~C:\Users\Awesome\Desktop\win10桌面备份\Sword\Maverick.PrjPCB
+1|Capacitor, Capacitor, Capacitor, Capacitor, Capacitor, Capacitor, Capacitor, Capacitor, Capacitor, Capacitor, Capacitor, Capacitor, Capacitor, Capacitor, Polarized Capacitor (Radial), Capacitor, Capacitor|0.1uF|C1, C3, C5, C8, C10, C11, C12, C14, C15, C16, C17, C19, C20, C21, C22, C23, C27|C0603B|17
+2|Polarized Capacitor (Radial)|1uF/16V|C2, C4|C0603B|2
+3|Capacitor|22nF|C6|C0603B|1
+4|Capacitor|22p|C7, C9|C0603B|2
+5|Polarized Capacitor (Radial)|4.7uF/16V|C13|C0603B|1
+6|Capacitor|4.7uF|C18, C25|C0603B|2
+7|Polarized Capacitor (Radial)|Cap Pol1|C24, C28, C29|C0603B|3
+8|Capacitor|2.2uF|C26|C0603B|1
+9|Schottky Diode|SS24|D1|D1812|1
+10|Fuse|1.5A/8V|F1|1812|1
+11|Header, 4-Pin|UART1|J1|SIPA4-1.27-SMT-H|1
+12|Header, 4-Pin|UART2|J2|SIPA4-1.27-SMT-H|1
+13|Header, 4-Pin|UART3|J3|SIPA4-1.27-SMT-H|1
+14||USB-5|J4|MICRO-USB|1
+15|Header, 4-Pin|SWD|J5|SIP4-1.27|1
+16|Resistor|0R|JR1|R0603B|1
+17|Electrical Bell|Bell|LS1|BEEP12*7.5|1
+18||0.96OLED|OLED1|0.96OLED|1
+19||LED|PWR1|LED0805R|1
+20|P-Channel Power MOSFET|PMOS-2|Q1|SOT-23-3|1
+21|NPN Bipolar Transistor|S8050|Q2, Q3, Q4, Q5, Q6, Q7, Q8|SOT-23-3|7
+22|Resistor|120|R1, R4, R13, R15, R18, R20|R0603B|6
+23|Resistor|150|R2, R21|R0603B|2
+24|Resistor|10K|R3, R7, R8, R9, R19, R37, R38, R39, R43|R0603B|9
+25|Resistor|180|R5, R6, R22, R23|R0603B|4
+26|Resistor|4.7K|R10, R11, R12, R24, R25, R26, R34, R41, R42, R46, R48|R0603B|11
+27|Resistor|3.3K|R14, R16, R17, R27, R28, R29, R35|R0603B|7
+28|Resistor|1.5K|R30, R31|R0603B|2
+29|Resistor|22|R32, R33|R0603B|2
+30|Resistor|1K|R36, R40|R0603B|2
+31|Resistor|910K|R44|R0603B|1
+32||3RES|R45, R47|3JUMP0603*2|2
+33||RGB3535|RGB1, RGB2|RGB3535|2
+34|Switch|SW-PB|S1|SW2PIN_8.2*3.5|1
+35|Switch|SW-PB|S2, S3|SW4PIN_9.2*6.15*9|2
+36||LED|STS1|LED0805G|1
+37||TEST|T1, T2, T3|TEST_POINT|3
+38||W25Qxx|U1|SOIC-8_208mil|1
+39||RT9193|U2|SOT23-5|1
+40|STM32 ARM-based 32-bit MCU with 64 Kbytes Flash, 48-pin LQFP, Industrial Temperature|STM32F103C8T6|U3|LQFP48_M_STM32|1
+41||USBLC6_2|U4|SOT-23-6|1
+42|Crystal Oscillator|8M|XTAL1|XL5032|1
