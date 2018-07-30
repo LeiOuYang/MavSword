@@ -220,15 +220,34 @@ void usart1_send_task(void const* argument)
 	unsigned int len = 0;
 	LoopQueue* sendQueue = 0;
 	unsigned int count = 0;
+	unsigned int command_ack_time[5] = {0, 0, 0, 0, 0};
 	
 	while(1)
 	{
 		osDelay(20);
 		
+		/* 发送磁罗盘校准指令 */
+		if(COMPASS_CAL_SEND==system_flag.drone_send_compass_cal)
+		{
+			mavlink_msg_command_long_send(USART1_ID, 0x01, 0x01, MAV_CMD_DO_START_MAG_CAL, 0, 0, 1, 0, 0, 0, 0, 0);
+			system_flag.drone_send_compass_cal = COMPASS_CAL_START;
+		}else if(COMPASS_CAL_START==system_flag.drone_send_compass_cal)
+		{
+			++command_ack_time[0];
+			if(command_ack_time[0]*20>=5000) /* 5秒之后没有收到应答信号 */
+			{
+				system_flag.drone_send_compass_cal = COMPASS_CAL_END;   /* 没有接受到指令应到消息*/
+				command_ack_time[0] = 0;
+			}
+		}else if(COMPASS_CAL_END==system_flag.drone_send_compass_cal)
+		{
+			command_ack_time[0] = 0;
+		}
+		
 		++count;
 		if(1500==count) /* 每隔30s发送一次请求发送数据控制 */
 		{
-			request_send_data(MAVLINK_COMM_1);
+			//request_send_data(MAVLINK_COMM_1);
 			count = 0;
 		}
 		
@@ -404,14 +423,18 @@ void button_event_task(void const* argument)
 				if(b->status==BUTTON_STATUS_DOWN_ENTER)
 				{
 					++b->down_time;
-					if(b->down_time*30>=3000&&b->down_time*30<10000) /* 按钮一直按下3秒 */
+					if(b->down_time*30>=3000&&b->down_time*30<3500 && 0==i) /* 按钮一直按下3秒 */
 					{
 						/* 处理事件 */
-						system_flag.beep_enable = 1;
+						//system_flag.beep_enable = 1;
+						if(COMPASS_CAL_END==system_flag.drone_send_compass_cal)
+						{
+							system_flag.drone_send_compass_cal = COMPASS_CAL_SEND;
+						}
 					}else if(b->down_time*50>=10000)
 					{
 						/* 处理事件 */
-						system_flag.beep_enable = 0;
+						//system_flag.beep_enable = 0;
 					}
 				}
 			}
@@ -1136,6 +1159,10 @@ static unsigned char mavlinkV1_parse(uint8_t chan, uint8_t c)
 			case MAVLINK_MSG_ID_MAG_CAL_REPORT:
 			{				
 				mavlink_msg_mag_cal_report_decode(&r_message, droneData.pMagCalReport);
+				if(COMPASS_CAL_PROING==system_flag.drone_send_compass_cal)
+				{
+					system_flag.drone_send_compass_cal = COMPASS_CAL_COMPLETE;
+				}
 				
 				break;
 			}
@@ -1915,5 +1942,25 @@ static void mav_status_text_pro(mavlink_statustext_t *statusText)
 		}
 	}
 	
+}
+
+static void commadn_ack_pro(uint16_t command, uint8_t result)
+{
+	switch(command)
+	{
+		case MAV_CMD_DO_START_MAG_CAL:   /* 发送开始校准磁罗盘指令 */
+		{
+			if(MAV_RESULT_ACCEPTED==result)
+			{
+				system_flag.drone_send_compass_cal = COMPASS_CAL_PROING;
+			}else
+			{
+				system_flag.drone_send_compass_cal = COMPASS_CAL_END;
+			}
+			break;
+		}
+		
+		default: break;
+	}
 }
 

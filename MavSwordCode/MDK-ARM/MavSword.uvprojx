@@ -481,6 +481,21 @@
               <FileType>1</FileType>
               <FilePath>..\Src\UserTask.c</FilePath>
             </File>
+            <File>
+              <FileName>mavlink_msg_command_long.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\MavlinkV1\common\mavlink_msg_command_long.h</FilePath>
+            </File>
+            <File>
+              <FileName>mavlink_helpers.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\MavlinkV1\mavlink_helpers.h</FilePath>
+            </File>
+            <File>
+              <FileName>mavlink_msg_command_ack.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\MavlinkV1\common\mavlink_msg_command_ack.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

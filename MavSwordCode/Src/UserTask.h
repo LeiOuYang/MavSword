@@ -225,10 +225,20 @@
 		unsigned char mavlink_exist:1;  /* mavlink数据，常亮蓝灯 */
 		unsigned char mavlink_valid:1;  /* mavlink中的状态数据有效 */
 		unsigned char drone_complete:1; /* 1-飞行完成 */
+		unsigned char drone_send_compass_cal; 
 		unsigned char test_mask_bit;        /*  */
 		unsigned char oled_page; 			/* OLED显示页 0-加载页面   1-基本信息页面 */
 		
 	}SystemFlag;
+	
+	typedef enum compass_status
+	{
+		COMPASS_CAL_END,
+		COMPASS_CAL_SEND,
+		COMPASS_CAL_START,
+		COMPASS_CAL_PROING,
+		COMPASS_CAL_COMPLETE
+	}CompassStatus;
 	
 	/* 无人机系统报错标志，1为有效 */
 	typedef struct fail_status
