@@ -22,7 +22,7 @@ Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
 D:\GithubPro\MavSword\MavSwordCode\MDK-ARM\MavSword.uvprojx
-Project File Date:  07/29/2018
+Project File Date:  07/30/2018
 
 <h2>Output:</h2>
 Build target 'MavSword'
@@ -40,375 +40,377 @@ compiling UserTask.c...
 ..\Src\UserTask.c(127): warning:  #188-D: enumerated type mixed with another type
         RGB2_Close();
 ..\Src\UserTask.c(232): warning:  #188-D: enumerated type mixed with another type
-                        mavlink_msg_command_long_send(USART1_ID, 0x01, 0x01, MAV_CMD_DO_START_MAG_CAL, 0, 0, 1, 0, 0, 0, 0, 0);
-..\Src\UserTask.c(801): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+                        mavlink_msg_command_long_send(USART1_ID, 0x01, 0x01, MAV_CMD_DO_START_MAG_CAL, 0, system_flag.compass_select, 1, 0, 0, 0, 0, 0);
+..\Src\UserTask.c(627): warning:  #174-D: expression has no effect
+                        system_flag.oled_page==0;
+..\Src\UserTask.c(855): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
                                                 OLED_ShowString(68,7,buff,8);
-..\Src\UserTask.c(1203): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1274): warning:  #188-D: enumerated type mixed with another type
         mavlink_msg_request_data_stream_send_struct(chan, &r_send_data);
-..\Src\UserTask.c(1204): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1275): warning:  #188-D: enumerated type mixed with another type
         mavlink_msg_request_data_stream_send_struct(chan, &r_send_data);
-..\Src\UserTask.c(1208): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1279): warning:  #188-D: enumerated type mixed with another type
         mavlink_msg_request_data_stream_send_struct(chan, &r_send_data);
-..\Src\UserTask.c(1209): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1280): warning:  #188-D: enumerated type mixed with another type
         mavlink_msg_request_data_stream_send_struct(chan, &r_send_data);
-..\Src\UserTask.c(1213): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1284): warning:  #188-D: enumerated type mixed with another type
         mavlink_msg_request_data_stream_send_struct(chan, &r_send_data);
-..\Src\UserTask.c(1214): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1285): warning:  #188-D: enumerated type mixed with another type
         mavlink_msg_request_data_stream_send_struct(chan, &r_send_data);
-..\Src\UserTask.c(1218): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1289): warning:  #188-D: enumerated type mixed with another type
         mavlink_msg_request_data_stream_send_struct(chan, &r_send_data);
-..\Src\UserTask.c(1219): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1290): warning:  #188-D: enumerated type mixed with another type
         mavlink_msg_request_data_stream_send_struct(chan, &r_send_data);
-..\Src\UserTask.c(1223): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1294): warning:  #188-D: enumerated type mixed with another type
         mavlink_msg_request_data_stream_send_struct(chan, &r_send_data);
-..\Src\UserTask.c(1224): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1295): warning:  #188-D: enumerated type mixed with another type
         mavlink_msg_request_data_stream_send_struct(chan, &r_send_data);
-..\Src\UserTask.c(1228): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1299): warning:  #188-D: enumerated type mixed with another type
         mavlink_msg_request_data_stream_send_struct(chan, &r_send_data);
-..\Src\UserTask.c(1229): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1300): warning:  #188-D: enumerated type mixed with another type
         mavlink_msg_request_data_stream_send_struct(chan, &r_send_data);
-..\Src\UserTask.c(1233): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1304): warning:  #188-D: enumerated type mixed with another type
         mavlink_msg_request_data_stream_send_struct(chan, &r_send_data);
-..\Src\UserTask.c(1234): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1305): warning:  #188-D: enumerated type mixed with another type
         mavlink_msg_request_data_stream_send_struct(chan, &r_send_data);
-..\Src\UserTask.c(1518): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1589): warning:  #188-D: enumerated type mixed with another type
                                 RGB1_Red();
-..\Src\UserTask.c(1518): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1589): warning:  #188-D: enumerated type mixed with another type
                                 RGB1_Red();
-..\Src\UserTask.c(1518): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1589): warning:  #188-D: enumerated type mixed with another type
                                 RGB1_Red();
-..\Src\UserTask.c(1519): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1590): warning:  #188-D: enumerated type mixed with another type
                                 RGB2_Red();
-..\Src\UserTask.c(1519): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1590): warning:  #188-D: enumerated type mixed with another type
                                 RGB2_Red();
-..\Src\UserTask.c(1519): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1590): warning:  #188-D: enumerated type mixed with another type
                                 RGB2_Red();
-..\Src\UserTask.c(1522): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Blue();
-..\Src\UserTask.c(1522): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Blue();
-..\Src\UserTask.c(1522): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Blue();
-..\Src\UserTask.c(1523): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Blue();
-..\Src\UserTask.c(1523): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Blue();
-..\Src\UserTask.c(1523): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Blue();
-..\Src\UserTask.c(1533): warning:  #188-D: enumerated type mixed with another type
-                RGB1_Close();
-..\Src\UserTask.c(1533): warning:  #188-D: enumerated type mixed with another type
-                RGB1_Close();
-..\Src\UserTask.c(1533): warning:  #188-D: enumerated type mixed with another type
-                RGB1_Close();
-..\Src\UserTask.c(1534): warning:  #188-D: enumerated type mixed with another type
-                RGB2_Close();
-..\Src\UserTask.c(1534): warning:  #188-D: enumerated type mixed with another type
-                RGB2_Close();
-..\Src\UserTask.c(1534): warning:  #188-D: enumerated type mixed with another type
-                RGB2_Close();
-..\Src\UserTask.c(1547): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Red();
-..\Src\UserTask.c(1547): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Red();
-..\Src\UserTask.c(1547): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Red();
-..\Src\UserTask.c(1548): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Red();
-..\Src\UserTask.c(1548): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Red();
-..\Src\UserTask.c(1548): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Red();
-..\Src\UserTask.c(1555): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Blue();
-..\Src\UserTask.c(1555): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Blue();
-..\Src\UserTask.c(1555): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Blue();
-..\Src\UserTask.c(1556): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Blue();
-..\Src\UserTask.c(1556): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Blue();
-..\Src\UserTask.c(1556): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Blue();
-..\Src\UserTask.c(1563): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Green();
-..\Src\UserTask.c(1563): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Green();
-..\Src\UserTask.c(1563): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Green();
-..\Src\UserTask.c(1564): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Green();
-..\Src\UserTask.c(1564): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Green();
-..\Src\UserTask.c(1564): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Green();
-..\Src\UserTask.c(1569): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Close();
-..\Src\UserTask.c(1569): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Close();
-..\Src\UserTask.c(1569): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Close();
-..\Src\UserTask.c(1570): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Close();
-..\Src\UserTask.c(1570): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Close();
-..\Src\UserTask.c(1570): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Close();
-..\Src\UserTask.c(1592): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Yellow();
-..\Src\UserTask.c(1592): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Yellow();
-..\Src\UserTask.c(1592): warning:  #188-D: enumerated type mixed with another type
-                                RGB1_Yellow();
 ..\Src\UserTask.c(1593): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Yellow();
+                                RGB1_Blue();
 ..\Src\UserTask.c(1593): warning:  #188-D: enumerated type mixed with another type
-                                RGB2_Yellow();
+                                RGB1_Blue();
 ..\Src\UserTask.c(1593): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Blue();
+..\Src\UserTask.c(1594): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Blue();
+..\Src\UserTask.c(1594): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Blue();
+..\Src\UserTask.c(1594): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Blue();
+..\Src\UserTask.c(1604): warning:  #188-D: enumerated type mixed with another type
+                RGB1_Close();
+..\Src\UserTask.c(1604): warning:  #188-D: enumerated type mixed with another type
+                RGB1_Close();
+..\Src\UserTask.c(1604): warning:  #188-D: enumerated type mixed with another type
+                RGB1_Close();
+..\Src\UserTask.c(1605): warning:  #188-D: enumerated type mixed with another type
+                RGB2_Close();
+..\Src\UserTask.c(1605): warning:  #188-D: enumerated type mixed with another type
+                RGB2_Close();
+..\Src\UserTask.c(1605): warning:  #188-D: enumerated type mixed with another type
+                RGB2_Close();
+..\Src\UserTask.c(1618): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Red();
+..\Src\UserTask.c(1618): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Red();
+..\Src\UserTask.c(1618): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Red();
+..\Src\UserTask.c(1619): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Red();
+..\Src\UserTask.c(1619): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Red();
+..\Src\UserTask.c(1619): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Red();
+..\Src\UserTask.c(1626): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Blue();
+..\Src\UserTask.c(1626): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Blue();
+..\Src\UserTask.c(1626): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Blue();
+..\Src\UserTask.c(1627): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Blue();
+..\Src\UserTask.c(1627): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Blue();
+..\Src\UserTask.c(1627): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Blue();
+..\Src\UserTask.c(1634): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Green();
+..\Src\UserTask.c(1634): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Green();
+..\Src\UserTask.c(1634): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Green();
+..\Src\UserTask.c(1635): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Green();
+..\Src\UserTask.c(1635): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Green();
+..\Src\UserTask.c(1635): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Green();
+..\Src\UserTask.c(1640): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Close();
+..\Src\UserTask.c(1640): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Close();
+..\Src\UserTask.c(1640): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Close();
+..\Src\UserTask.c(1641): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Close();
+..\Src\UserTask.c(1641): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Close();
+..\Src\UserTask.c(1641): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Close();
+..\Src\UserTask.c(1663): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Yellow();
+..\Src\UserTask.c(1663): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Yellow();
+..\Src\UserTask.c(1663): warning:  #188-D: enumerated type mixed with another type
+                                RGB1_Yellow();
+..\Src\UserTask.c(1664): warning:  #188-D: enumerated type mixed with another type
                                 RGB2_Yellow();
-..\Src\UserTask.c(1607): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1664): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Yellow();
+..\Src\UserTask.c(1664): warning:  #188-D: enumerated type mixed with another type
+                                RGB2_Yellow();
+..\Src\UserTask.c(1678): warning:  #188-D: enumerated type mixed with another type
                                                 RGB1_Red();
-..\Src\UserTask.c(1607): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1678): warning:  #188-D: enumerated type mixed with another type
                                                 RGB1_Red();
-..\Src\UserTask.c(1607): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1678): warning:  #188-D: enumerated type mixed with another type
                                                 RGB1_Red();
-..\Src\UserTask.c(1608): warning:  #188-D: enumerated type mixed with another type
-                                                RGB2_Red();
-..\Src\UserTask.c(1608): warning:  #188-D: enumerated type mixed with another type
-                                                RGB2_Red();
-..\Src\UserTask.c(1608): warning:  #188-D: enumerated type mixed with another type
-                                                RGB2_Red();
-..\Src\UserTask.c(1611): warning:  #188-D: enumerated type mixed with another type
-                                                RGB1_Blue();
-..\Src\UserTask.c(1611): warning:  #188-D: enumerated type mixed with another type
-                                                RGB1_Blue();
-..\Src\UserTask.c(1611): warning:  #188-D: enumerated type mixed with another type
-                                                RGB1_Blue();
-..\Src\UserTask.c(1612): warning:  #188-D: enumerated type mixed with another type
-                                                RGB2_Blue();
-..\Src\UserTask.c(1612): warning:  #188-D: enumerated type mixed with another type
-                                                RGB2_Blue();
-..\Src\UserTask.c(1612): warning:  #188-D: enumerated type mixed with another type
-                                                RGB2_Blue();
-..\Src\UserTask.c(1615): warning:  #188-D: enumerated type mixed with another type
-                                                RGB1_Close();
-..\Src\UserTask.c(1615): warning:  #188-D: enumerated type mixed with another type
-                                                RGB1_Close();
-..\Src\UserTask.c(1615): warning:  #188-D: enumerated type mixed with another type
-                                                RGB1_Close();
-..\Src\UserTask.c(1616): warning:  #188-D: enumerated type mixed with another type
-                                                RGB2_Close();
-..\Src\UserTask.c(1616): warning:  #188-D: enumerated type mixed with another type
-                                                RGB2_Close();
-..\Src\UserTask.c(1616): warning:  #188-D: enumerated type mixed with another type
-                                                RGB2_Close();
-..\Src\UserTask.c(1628): warning:  #188-D: enumerated type mixed with another type
-                        RGB1_Green();
-..\Src\UserTask.c(1628): warning:  #188-D: enumerated type mixed with another type
-                        RGB1_Green();
-..\Src\UserTask.c(1628): warning:  #188-D: enumerated type mixed with another type
-                        RGB1_Green();
-..\Src\UserTask.c(1629): warning:  #188-D: enumerated type mixed with another type
-                        RGB2_Green();
-..\Src\UserTask.c(1629): warning:  #188-D: enumerated type mixed with another type
-                        RGB2_Green();
-..\Src\UserTask.c(1629): warning:  #188-D: enumerated type mixed with another type
-                        RGB2_Green();
-..\Src\UserTask.c(1632): warning:  #188-D: enumerated type mixed with another type
-                        RGB1_Blue();
-..\Src\UserTask.c(1632): warning:  #188-D: enumerated type mixed with another type
-                        RGB1_Blue();
-..\Src\UserTask.c(1632): warning:  #188-D: enumerated type mixed with another type
-                        RGB1_Blue();
-..\Src\UserTask.c(1633): warning:  #188-D: enumerated type mixed with another type
-                        RGB2_Blue();
-..\Src\UserTask.c(1633): warning:  #188-D: enumerated type mixed with another type
-                        RGB2_Blue();
-..\Src\UserTask.c(1633): warning:  #188-D: enumerated type mixed with another type
-                        RGB2_Blue();
-..\Src\UserTask.c(1645): warning:  #188-D: enumerated type mixed with another type
-                                        RGB1_Yellow();
-..\Src\UserTask.c(1645): warning:  #188-D: enumerated type mixed with another type
-                                        RGB1_Yellow();
-..\Src\UserTask.c(1645): warning:  #188-D: enumerated type mixed with another type
-                                        RGB1_Yellow();
-..\Src\UserTask.c(1646): warning:  #188-D: enumerated type mixed with another type
-                                        RGB2_Yellow();
-..\Src\UserTask.c(1646): warning:  #188-D: enumerated type mixed with another type
-                                        RGB2_Yellow();
-..\Src\UserTask.c(1646): warning:  #188-D: enumerated type mixed with another type
-                                        RGB2_Yellow();
-..\Src\UserTask.c(1655): warning:  #188-D: enumerated type mixed with another type
-                                        RGB1_Close();
-..\Src\UserTask.c(1655): warning:  #188-D: enumerated type mixed with another type
-                                        RGB1_Close();
-..\Src\UserTask.c(1655): warning:  #188-D: enumerated type mixed with another type
-                                        RGB1_Close();
-..\Src\UserTask.c(1656): warning:  #188-D: enumerated type mixed with another type
-                                        RGB2_Close();
-..\Src\UserTask.c(1656): warning:  #188-D: enumerated type mixed with another type
-                                        RGB2_Close();
-..\Src\UserTask.c(1656): warning:  #188-D: enumerated type mixed with another type
-                                        RGB2_Close();
-..\Src\UserTask.c(1667): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB1_Green();
-..\Src\UserTask.c(1667): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB1_Green();
-..\Src\UserTask.c(1667): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB1_Green();
-..\Src\UserTask.c(1668): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB2_Green();
-..\Src\UserTask.c(1668): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB2_Green();
-..\Src\UserTask.c(1668): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB2_Green();
-..\Src\UserTask.c(1673): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB1_Close();
-..\Src\UserTask.c(1673): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB1_Close();
-..\Src\UserTask.c(1673): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB1_Close();
-..\Src\UserTask.c(1674): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB2_Close();
-..\Src\UserTask.c(1674): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB2_Close();
-..\Src\UserTask.c(1674): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB2_Close();
 ..\Src\UserTask.c(1679): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB1_Green();
+                                                RGB2_Red();
 ..\Src\UserTask.c(1679): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB1_Green();
+                                                RGB2_Red();
 ..\Src\UserTask.c(1679): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB1_Green();
-..\Src\UserTask.c(1680): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB2_Green();
-..\Src\UserTask.c(1680): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB2_Green();
-..\Src\UserTask.c(1680): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB2_Green();
-..\Src\UserTask.c(1685): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB1_Close();
-..\Src\UserTask.c(1685): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB1_Close();
-..\Src\UserTask.c(1685): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB1_Close();
+                                                RGB2_Red();
+..\Src\UserTask.c(1682): warning:  #188-D: enumerated type mixed with another type
+                                                RGB1_Blue();
+..\Src\UserTask.c(1682): warning:  #188-D: enumerated type mixed with another type
+                                                RGB1_Blue();
+..\Src\UserTask.c(1682): warning:  #188-D: enumerated type mixed with another type
+                                                RGB1_Blue();
+..\Src\UserTask.c(1683): warning:  #188-D: enumerated type mixed with another type
+                                                RGB2_Blue();
+..\Src\UserTask.c(1683): warning:  #188-D: enumerated type mixed with another type
+                                                RGB2_Blue();
+..\Src\UserTask.c(1683): warning:  #188-D: enumerated type mixed with another type
+                                                RGB2_Blue();
 ..\Src\UserTask.c(1686): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB2_Close();
+                                                RGB1_Close();
 ..\Src\UserTask.c(1686): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB2_Close();
+                                                RGB1_Close();
 ..\Src\UserTask.c(1686): warning:  #188-D: enumerated type mixed with another type
-                                                        RGB2_Close();
-..\Src\UserTask.c(1690): warning:  #188-D: enumerated type mixed with another type
                                                 RGB1_Close();
-..\Src\UserTask.c(1690): warning:  #188-D: enumerated type mixed with another type
-                                                RGB1_Close();
-..\Src\UserTask.c(1690): warning:  #188-D: enumerated type mixed with another type
-                                                RGB1_Close();
-..\Src\UserTask.c(1691): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1687): warning:  #188-D: enumerated type mixed with another type
                                                 RGB2_Close();
-..\Src\UserTask.c(1691): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1687): warning:  #188-D: enumerated type mixed with another type
                                                 RGB2_Close();
-..\Src\UserTask.c(1691): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1687): warning:  #188-D: enumerated type mixed with another type
                                                 RGB2_Close();
-..\Src\UserTask.c(1694): warning:  #188-D: enumerated type mixed with another type
-                                                                RGB1_Green();
-..\Src\UserTask.c(1694): warning:  #188-D: enumerated type mixed with another type
-                                                                RGB1_Green();
-..\Src\UserTask.c(1694): warning:  #188-D: enumerated type mixed with another type
-                                                                RGB1_Green();
-..\Src\UserTask.c(1695): warning:  #188-D: enumerated type mixed with another type
-                                                                RGB2_Green();
-..\Src\UserTask.c(1695): warning:  #188-D: enumerated type mixed with another type
-                                                                RGB2_Green();
-..\Src\UserTask.c(1695): warning:  #188-D: enumerated type mixed with another type
-                                                                RGB2_Green();
-..\Src\UserTask.c(1698): warning:  #188-D: enumerated type mixed with another type
-                                                                RGB1_Blue();
-..\Src\UserTask.c(1698): warning:  #188-D: enumerated type mixed with another type
-                                                                RGB1_Blue();
-..\Src\UserTask.c(1698): warning:  #188-D: enumerated type mixed with another type
-                                                                RGB1_Blue();
 ..\Src\UserTask.c(1699): warning:  #188-D: enumerated type mixed with another type
-                                                                RGB2_Blue();
+                        RGB1_Green();
 ..\Src\UserTask.c(1699): warning:  #188-D: enumerated type mixed with another type
-                                                                RGB2_Blue();
+                        RGB1_Green();
 ..\Src\UserTask.c(1699): warning:  #188-D: enumerated type mixed with another type
+                        RGB1_Green();
+..\Src\UserTask.c(1700): warning:  #188-D: enumerated type mixed with another type
+                        RGB2_Green();
+..\Src\UserTask.c(1700): warning:  #188-D: enumerated type mixed with another type
+                        RGB2_Green();
+..\Src\UserTask.c(1700): warning:  #188-D: enumerated type mixed with another type
+                        RGB2_Green();
+..\Src\UserTask.c(1703): warning:  #188-D: enumerated type mixed with another type
+                        RGB1_Blue();
+..\Src\UserTask.c(1703): warning:  #188-D: enumerated type mixed with another type
+                        RGB1_Blue();
+..\Src\UserTask.c(1703): warning:  #188-D: enumerated type mixed with another type
+                        RGB1_Blue();
+..\Src\UserTask.c(1704): warning:  #188-D: enumerated type mixed with another type
+                        RGB2_Blue();
+..\Src\UserTask.c(1704): warning:  #188-D: enumerated type mixed with another type
+                        RGB2_Blue();
+..\Src\UserTask.c(1704): warning:  #188-D: enumerated type mixed with another type
+                        RGB2_Blue();
+..\Src\UserTask.c(1716): warning:  #188-D: enumerated type mixed with another type
+                                        RGB1_Yellow();
+..\Src\UserTask.c(1716): warning:  #188-D: enumerated type mixed with another type
+                                        RGB1_Yellow();
+..\Src\UserTask.c(1716): warning:  #188-D: enumerated type mixed with another type
+                                        RGB1_Yellow();
+..\Src\UserTask.c(1717): warning:  #188-D: enumerated type mixed with another type
+                                        RGB2_Yellow();
+..\Src\UserTask.c(1717): warning:  #188-D: enumerated type mixed with another type
+                                        RGB2_Yellow();
+..\Src\UserTask.c(1717): warning:  #188-D: enumerated type mixed with another type
+                                        RGB2_Yellow();
+..\Src\UserTask.c(1726): warning:  #188-D: enumerated type mixed with another type
+                                        RGB1_Close();
+..\Src\UserTask.c(1726): warning:  #188-D: enumerated type mixed with another type
+                                        RGB1_Close();
+..\Src\UserTask.c(1726): warning:  #188-D: enumerated type mixed with another type
+                                        RGB1_Close();
+..\Src\UserTask.c(1727): warning:  #188-D: enumerated type mixed with another type
+                                        RGB2_Close();
+..\Src\UserTask.c(1727): warning:  #188-D: enumerated type mixed with another type
+                                        RGB2_Close();
+..\Src\UserTask.c(1727): warning:  #188-D: enumerated type mixed with another type
+                                        RGB2_Close();
+..\Src\UserTask.c(1738): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB1_Green();
+..\Src\UserTask.c(1738): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB1_Green();
+..\Src\UserTask.c(1738): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB1_Green();
+..\Src\UserTask.c(1739): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB2_Green();
+..\Src\UserTask.c(1739): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB2_Green();
+..\Src\UserTask.c(1739): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB2_Green();
+..\Src\UserTask.c(1744): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB1_Close();
+..\Src\UserTask.c(1744): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB1_Close();
+..\Src\UserTask.c(1744): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB1_Close();
+..\Src\UserTask.c(1745): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB2_Close();
+..\Src\UserTask.c(1745): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB2_Close();
+..\Src\UserTask.c(1745): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB2_Close();
+..\Src\UserTask.c(1750): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB1_Green();
+..\Src\UserTask.c(1750): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB1_Green();
+..\Src\UserTask.c(1750): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB1_Green();
+..\Src\UserTask.c(1751): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB2_Green();
+..\Src\UserTask.c(1751): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB2_Green();
+..\Src\UserTask.c(1751): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB2_Green();
+..\Src\UserTask.c(1756): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB1_Close();
+..\Src\UserTask.c(1756): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB1_Close();
+..\Src\UserTask.c(1756): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB1_Close();
+..\Src\UserTask.c(1757): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB2_Close();
+..\Src\UserTask.c(1757): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB2_Close();
+..\Src\UserTask.c(1757): warning:  #188-D: enumerated type mixed with another type
+                                                        RGB2_Close();
+..\Src\UserTask.c(1761): warning:  #188-D: enumerated type mixed with another type
+                                                RGB1_Close();
+..\Src\UserTask.c(1761): warning:  #188-D: enumerated type mixed with another type
+                                                RGB1_Close();
+..\Src\UserTask.c(1761): warning:  #188-D: enumerated type mixed with another type
+                                                RGB1_Close();
+..\Src\UserTask.c(1762): warning:  #188-D: enumerated type mixed with another type
+                                                RGB2_Close();
+..\Src\UserTask.c(1762): warning:  #188-D: enumerated type mixed with another type
+                                                RGB2_Close();
+..\Src\UserTask.c(1762): warning:  #188-D: enumerated type mixed with another type
+                                                RGB2_Close();
+..\Src\UserTask.c(1765): warning:  #188-D: enumerated type mixed with another type
+                                                                RGB1_Green();
+..\Src\UserTask.c(1765): warning:  #188-D: enumerated type mixed with another type
+                                                                RGB1_Green();
+..\Src\UserTask.c(1765): warning:  #188-D: enumerated type mixed with another type
+                                                                RGB1_Green();
+..\Src\UserTask.c(1766): warning:  #188-D: enumerated type mixed with another type
+                                                                RGB2_Green();
+..\Src\UserTask.c(1766): warning:  #188-D: enumerated type mixed with another type
+                                                                RGB2_Green();
+..\Src\UserTask.c(1766): warning:  #188-D: enumerated type mixed with another type
+                                                                RGB2_Green();
+..\Src\UserTask.c(1769): warning:  #188-D: enumerated type mixed with another type
+                                                                RGB1_Blue();
+..\Src\UserTask.c(1769): warning:  #188-D: enumerated type mixed with another type
+                                                                RGB1_Blue();
+..\Src\UserTask.c(1769): warning:  #188-D: enumerated type mixed with another type
+                                                                RGB1_Blue();
+..\Src\UserTask.c(1770): warning:  #188-D: enumerated type mixed with another type
                                                                 RGB2_Blue();
-..\Src\UserTask.c(1704): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1770): warning:  #188-D: enumerated type mixed with another type
+                                                                RGB2_Blue();
+..\Src\UserTask.c(1770): warning:  #188-D: enumerated type mixed with another type
+                                                                RGB2_Blue();
+..\Src\UserTask.c(1775): warning:  #188-D: enumerated type mixed with another type
                                                         RGB1_Close();
-..\Src\UserTask.c(1704): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1775): warning:  #188-D: enumerated type mixed with another type
                                                         RGB1_Close();
-..\Src\UserTask.c(1704): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1775): warning:  #188-D: enumerated type mixed with another type
                                                         RGB1_Close();
-..\Src\UserTask.c(1705): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1776): warning:  #188-D: enumerated type mixed with another type
                                                         RGB2_Close();
-..\Src\UserTask.c(1705): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1776): warning:  #188-D: enumerated type mixed with another type
                                                         RGB2_Close();
-..\Src\UserTask.c(1705): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1776): warning:  #188-D: enumerated type mixed with another type
                                                         RGB2_Close();
-..\Src\UserTask.c(1711): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1782): warning:  #188-D: enumerated type mixed with another type
                                                         RGB1_Green();
-..\Src\UserTask.c(1711): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1782): warning:  #188-D: enumerated type mixed with another type
                                                         RGB1_Green();
-..\Src\UserTask.c(1711): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1782): warning:  #188-D: enumerated type mixed with another type
                                                         RGB1_Green();
-..\Src\UserTask.c(1712): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1783): warning:  #188-D: enumerated type mixed with another type
                                                         RGB2_Green();
-..\Src\UserTask.c(1712): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1783): warning:  #188-D: enumerated type mixed with another type
                                                         RGB2_Green();
-..\Src\UserTask.c(1712): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1783): warning:  #188-D: enumerated type mixed with another type
                                                         RGB2_Green();
-..\Src\UserTask.c(1718): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1789): warning:  #188-D: enumerated type mixed with another type
                                                         RGB1_Close();
-..\Src\UserTask.c(1718): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1789): warning:  #188-D: enumerated type mixed with another type
                                                         RGB1_Close();
-..\Src\UserTask.c(1718): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1789): warning:  #188-D: enumerated type mixed with another type
                                                         RGB1_Close();
-..\Src\UserTask.c(1719): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1790): warning:  #188-D: enumerated type mixed with another type
                                                         RGB2_Close();
-..\Src\UserTask.c(1719): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1790): warning:  #188-D: enumerated type mixed with another type
                                                         RGB2_Close();
-..\Src\UserTask.c(1719): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1790): warning:  #188-D: enumerated type mixed with another type
                                                         RGB2_Close();
-..\Src\UserTask.c(1724): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1795): warning:  #188-D: enumerated type mixed with another type
                                                         RGB1_Green();
-..\Src\UserTask.c(1724): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1795): warning:  #188-D: enumerated type mixed with another type
                                                         RGB1_Green();
-..\Src\UserTask.c(1724): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1795): warning:  #188-D: enumerated type mixed with another type
                                                         RGB1_Green();
-..\Src\UserTask.c(1725): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1796): warning:  #188-D: enumerated type mixed with another type
                                                         RGB2_Green();
-..\Src\UserTask.c(1725): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1796): warning:  #188-D: enumerated type mixed with another type
                                                         RGB2_Green();
-..\Src\UserTask.c(1725): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1796): warning:  #188-D: enumerated type mixed with another type
                                                         RGB2_Green();
-..\Src\UserTask.c(1730): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1801): warning:  #188-D: enumerated type mixed with another type
                                                 RGB1_Close();
-..\Src\UserTask.c(1730): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1801): warning:  #188-D: enumerated type mixed with another type
                                                 RGB1_Close();
-..\Src\UserTask.c(1730): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1801): warning:  #188-D: enumerated type mixed with another type
                                                 RGB1_Close();
-..\Src\UserTask.c(1731): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1802): warning:  #188-D: enumerated type mixed with another type
                                                 RGB2_Close();
-..\Src\UserTask.c(1731): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1802): warning:  #188-D: enumerated type mixed with another type
                                                 RGB2_Close();
-..\Src\UserTask.c(1731): warning:  #188-D: enumerated type mixed with another type
+..\Src\UserTask.c(1802): warning:  #188-D: enumerated type mixed with another type
                                                 RGB2_Close();
-..\Src\UserTask.c(1500): warning:  #177-D: variable "timeMs" was declared but never referenced
+..\Src\UserTask.c(1571): warning:  #177-D: variable "timeMs" was declared but never referenced
         static unsigned char timeMs = 0;
-..\Src\UserTask.c(951): warning:  #177-D: function "mavlinkV1_parse" was declared but never referenced
+..\Src\UserTask.c(1022): warning:  #177-D: function "mavlinkV1_parse" was declared but never referenced
   static unsigned char mavlinkV1_parse(uint8_t chan, uint8_t c)
-..\Src\UserTask.c(1193): warning:  #177-D: function "request_send_data" was declared but never referenced
+..\Src\UserTask.c(1264): warning:  #177-D: function "request_send_data" was declared but never referenced
   static void request_send_data(uint8_t chan)
-..\Src\UserTask.c(1464): warning:  #177-D: function "acc_pro" was declared but never referenced
+..\Src\UserTask.c(1535): warning:  #177-D: function "acc_pro" was declared but never referenced
   static void acc_pro(DroneImuPro* pip)
-..\Src\UserTask.c(1947): warning:  #177-D: function "commadn_ack_pro" was declared but never referenced
+..\Src\UserTask.c(2018): warning:  #177-D: function "commadn_ack_pro" was declared but never referenced
   static void commadn_ack_pro(uint16_t command, uint8_t result)
-..\Src\UserTask.c: 189 warnings, 0 errors
+..\Src\UserTask.c: 190 warnings, 0 errors
 linking...
-Program Size: Code=20760 RO-data=3816 RW-data=160 ZI-data=15040  
-"MavSword\MavSword.axf" - 0 Error(s), 189 Warning(s).
+Program Size: Code=21152 RO-data=3816 RW-data=160 ZI-data=15040  
+"MavSword\MavSword.axf" - 0 Error(s), 190 Warning(s).
 
 <h2>Software Packages used:</h2>
 

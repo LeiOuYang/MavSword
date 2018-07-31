@@ -57,7 +57,7 @@ BUTTON_STATUS button_exti_callback(ButtonId id)
 		if(bt->status!=BUTTON_STATUS_UP_START) /* 按键第一次按下 */
 		{
 			bt->status = BUTTON_STATUS_UP_START;
-			bt->down_time = 0;
+			//bt->down_time = 0;
 		}
 	}
 	

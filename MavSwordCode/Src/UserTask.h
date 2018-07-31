@@ -228,12 +228,15 @@
 		unsigned char drone_send_compass_cal; 
 		unsigned char test_mask_bit;        /*  */
 		unsigned char oled_page; 			/* OLED显示页 0-加载页面   1-基本信息页面 */
+		unsigned char compass_select; /* 磁罗盘选择 */
 		
 	}SystemFlag;
 	
 	typedef enum compass_status
 	{
 		COMPASS_CAL_END,
+		COMPASS_CAL_OLED_PAGE,
+		COMPASS_CAL_SEND_VALID,
 		COMPASS_CAL_SEND,
 		COMPASS_CAL_START,
 		COMPASS_CAL_PROING,
