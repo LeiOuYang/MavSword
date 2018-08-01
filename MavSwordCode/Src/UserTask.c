@@ -38,6 +38,7 @@ static FailStatus fail_status;
 mavlink_system_t gcs_mavlink_system = {0xff,0xbe};
 
 /* 飞行数据缓存 */
+DroneMagStatus droneMagStatus[2];
 DroneHeatbeat droneHeatbeat;
 DroneSysStatus droneSysStatus;
 DroneVfr droneVfr;
@@ -278,20 +279,23 @@ void usart1_rec_task(void const* argument)
 {
 	unsigned char buff[512] = {0};
 	unsigned int len = 0;
+	unsigned int i = 0;
 	
 	while(1)
 	{
 		osDelay(20);
 		
 		len = read(USART1_ID, (char*)buff, 512);
+		i = 0;
 		
 		if(len>0)
 		{			
-			xSemaphoreTake( usart1_send_mutex, portMAX_DELAY );
-			
-			write(USART1_ID, (char*)buff, len);
-			
-			xSemaphoreGive(usart1_send_mutex);
+			while(len!=0)
+			{
+				mavlinkV1_parse(USART1_ID, buff[i]);
+				++i;
+				--len;
+			}
 		}
 	}
 }
@@ -520,6 +524,7 @@ static void system_init(void)
 	}
 	
 	init_drone_data();
+
 }
 
 /* 接收中断处理函数中调用，将接收的字节数据保存在接收循环缓冲队列中 */
@@ -596,13 +601,13 @@ void update_oled_task(void const* argument)
 	OLED_Clear();
 	display_title();
 	display_logo();
-	OLED_ShowString(0, 7, "L", 8);
+	OLED_ShowString(0, 6, "link", 8);
 	system_flag.init_loader=1;
 	system_flag.oled_page = 0;
 	
 //	system_flag.drone_complete = 1;
 //	system_flag.mavlink_exist = 1;
-	
+//	
 	while(1)
 	{
 		if(system_flag.pre_fly_count!=system_flag.fly_count)  /* 飞行完成 */
@@ -631,7 +636,7 @@ void update_oled_task(void const* argument)
 		{
 			unsigned char *str = ".";
 			
-			OLED_ShowString(8+count*8, 7, str, 8);
+			OLED_ShowString(count*8, 7, str, 8);
 			osDelay(500);
 			++count;
 			
@@ -686,11 +691,13 @@ void update_oled_task(void const* argument)
 						OLED_Clear();
 						
 						display_string_Font8_16(0, 0, "Compass Cal: "); /*row0*/
-						
-						OLED_ShowString(0, 4, "offx: 10000", 8);	
-						OLED_ShowString(0, 5, "offy: 10000", 8);	
-						OLED_ShowString(0, 6, "offz: 10000", 8);	
-						display_string_Font8_16(128-4*8, 5, "PASS");
+						OLED_ShowString(0, 2, "          00% 1", 8);
+						OLED_ShowString(0, 4, "          00% 2", 8);
+						OLED_ShowString(104, 1, "id", 8);
+						OLED_ShowString(0, 5, "offx: ", 8);	
+						OLED_ShowString(0, 6, "offy: ", 8);	
+						OLED_ShowString(0, 7, "offz: ", 8);	
+						display_string_Font8_16(128-4*8, 6, "----");
 					}
 					break;
 				}
@@ -853,6 +860,78 @@ void update_oled_task(void const* argument)
 						OLED_Clear_Area(68, 7, 98, 7);
 						float_to_string((double)droneVfr.heading, (char*)buff, 3, 1);
 						OLED_ShowString(68,7,buff,8);
+						
+						break;
+					}
+					
+					case 2:
+					{
+						if(!system_flag.compass_select)  /* 两个磁罗盘全部校准 */
+						{
+							unsigned char i = 0;
+							for(i=0; i<2; ++i)
+							{
+								/* 显示百分比 */
+								int_to_string(droneMagStatus[i].completion_pct, (char*)buff, 2);
+								if(1==droneMagStatus[i].compass_id)
+								{
+									OLED_Clear_Area(80, 2, 96, 2);
+									OLED_ShowString(80, 2, buff, 8);
+									
+									if(0==droneMagStatus[i].completion_pct)
+									{
+										OLED_Clear_Area(0, 2, 80, 2);
+									}else
+									{
+										OLED_set_area(0, 2, (droneMagStatus[i].completion_pct/10)*8, 2);   
+									}
+									
+								}
+								else if(2==droneMagStatus[i].compass_id)
+								{
+									OLED_Clear_Area(80, 4, 96, 4);
+									OLED_ShowString(80, 4, buff, 8);
+									
+									if(0==droneMagStatus[i].completion_pct)
+									{
+										OLED_Clear_Area(0, 4, 80, 4);
+									}else
+									{
+										OLED_set_area(0, 4, (droneMagStatus[i].completion_pct/10)*8, 4);   
+									}
+								}
+							}
+						}else
+						{
+							if(1==system_flag.compass_select)
+							{
+								OLED_Clear_Area(80, 2, 96, 2);
+								OLED_ShowString(80, 2, buff, 8);
+								
+								OLED_set_area(0, 2, 10*8, 2);
+								
+								if(0==droneMagStatus[system_flag.compass_select-1].completion_pct)
+								{
+									OLED_Clear_Area(0, 2, 80, 2);
+								}else
+								{
+									OLED_set_area(0, 2, (droneMagStatus[system_flag.compass_select-1].completion_pct/10)*8, 4);   
+								}
+							}else if(2==system_flag.compass_select)
+							{
+								OLED_Clear_Area(80, 4, 96, 4);
+								OLED_ShowString(80, 4, buff, 8);
+								
+								if(0==droneMagStatus[system_flag.compass_select-1].completion_pct)
+								{
+									OLED_Clear_Area(0, 4, 80, 4);
+								}else
+								{
+									OLED_set_area(0, 4, (droneMagStatus[system_flag.compass_select-1].completion_pct/10)*8, 4);   
+								}
+							}
+
+						}
 						
 						break;
 					}
@@ -1218,11 +1297,21 @@ static unsigned char mavlinkV1_parse(uint8_t chan, uint8_t c)
 			/* #191 磁罗盘校准进度 */
 			case MAVLINK_MSG_ID_MAG_CAL_PROGRESS:
 			{
+				unsigned char id = 0;
 				droneMagCalPro.compass_id = mavlink_msg_mag_cal_progress_get_compass_id(&r_message);; /*< Compass being calibrated*/
 				droneMagCalPro.cal_mask = mavlink_msg_mag_cal_progress_get_cal_mask(&r_message); /*< Bitmask of compasses being calibrated*/
 				droneMagCalPro.cal_status = mavlink_msg_mag_cal_progress_get_cal_status(&r_message); /*< Status (see MAG_CAL_STATUS enum)*/
 				droneMagCalPro.attempt = mavlink_msg_mag_cal_progress_get_attempt(&r_message); /*< Attempt number 校准次数*/
 				droneMagCalPro.completion_pct = mavlink_msg_mag_cal_progress_get_completion_pct(&r_message); /*< Completion percentage 校准进度  百分比*/
+				
+				/* id=1为外置磁罗盘    id=2为内置磁罗盘 */
+				id = droneMagCalPro.compass_id;
+				droneMagStatus[id-1].compass_id = id;
+				droneMagStatus[id-1].attempt = droneMagCalPro.attempt;
+				droneMagStatus[id-1].cal_status = droneMagCalPro.cal_status;
+				droneMagStatus[id-1].cal_mask = droneMagCalPro.cal_mask;
+				droneMagStatus[id-1].completion_pct = droneMagCalPro.completion_pct;
+				
 				break;
 			}
 			

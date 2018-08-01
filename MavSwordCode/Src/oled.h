@@ -54,6 +54,7 @@ void OLED_Display_Off(void);
 void OLED_Init(void);
 void OLED_Clear(void);
 void OLED_Clear_Area(unsigned char sx, unsigned char sy, unsigned char ex, unsigned char ey);
+void OLED_set_area(unsigned char sx, unsigned char sy, unsigned char ex, unsigned char ey);
 void OLED_DrawPoint(unsigned char x,unsigned char y,unsigned char t);
 void OLED_Fill(unsigned char x1,unsigned char y1,unsigned char x2,unsigned char y2,unsigned char dot);
 void OLED_ShowChar(unsigned char x,unsigned char y,unsigned char chr,unsigned char Char_Size);

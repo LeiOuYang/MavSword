@@ -259,6 +259,26 @@ void OLED_Clear_Area(unsigned char sx, unsigned char sy, unsigned char ex, unsig
 	}
 }
 
+void OLED_set_area(unsigned char sx, unsigned char sy, unsigned char ex, unsigned char ey)  
+{
+	unsigned char x,y;
+	unsigned char i = 0;
+	
+	if(ex-sx<0||ey-sy<0) return;	
+	
+	x = sx;
+	y = sy;
+	
+	for(y=sy; y<=ey; ++y)
+	{	
+	  OLED_Set_Pos(x,y);		
+		for(x=sx; x<ex; ++x)
+		{ 
+			OLED_WR_Byte(0xff,OLED_DATA);
+		}	
+	}
+}
+
 //在指定位置显示一个字符,包括部分字符
 //x:0~127
 //y:0~63

@@ -17,6 +17,15 @@
 	#define OLED_PAGE1_UPDATE_VALID  		(1<<1)
 	#define OLED_PAGE1_UPDATE_INVALID		(~(1<<1))	
 	
+	typedef struct _drone_mag_status
+	{
+		uint8_t compass_id; /*< Compass being calibrated*/
+		uint8_t cal_mask; /*< Bitmask of compasses being calibrated*/
+		uint8_t cal_status; /*< Status (see MAG_CAL_STATUS enum)*/
+		uint8_t attempt; /*< Attempt number*/
+		uint8_t completion_pct;
+	}DroneMagStatus;
+	
 	typedef struct _drone_current
 	{
 		uint32_t count;
