@@ -39,6 +39,7 @@ mavlink_system_t gcs_mavlink_system = {0xff,0xbe};
 
 /* 飞行数据缓存 */
 DroneMagStatus droneMagStatus[2];
+DroneCompassOff droneCompassOff[2];  /* 0-外置磁罗盘， 1-内置磁罗盘 */
 DroneHeatbeat droneHeatbeat;
 DroneSysStatus droneSysStatus;
 DroneVfr droneVfr;
@@ -230,20 +231,42 @@ void usart1_send_task(void const* argument)
 		/* 发送磁罗盘校准指令 */
 		if(COMPASS_CAL_SEND==system_flag.drone_send_compass_cal)
 		{
-			mavlink_msg_command_long_send(USART1_ID, 0x01, 0x01, MAV_CMD_DO_START_MAG_CAL, 0, system_flag.compass_select, 1, 0, 0, 0, 0, 0);
+			mavlink_msg_command_long_send(USART1_ID, 0x01, 0x01, MAV_CMD_DO_START_MAG_CAL, 0, system_flag.compass_select, 1, 0, 0, 0, 0, 0);  /* 发送校准指令 */
+			mavlink_msg_command_long_send(USART1_ID, 0x01, 0x01, MAV_CMD_DO_START_MAG_CAL, 0, system_flag.compass_select, 1, 0, 0, 0, 0, 0);  /* 发送校准指令 */
 			system_flag.drone_send_compass_cal = COMPASS_CAL_START;
-		}else if(COMPASS_CAL_START==system_flag.drone_send_compass_cal)
+		}else if(COMPASS_CAL_SEND_SAVE==system_flag.drone_send_compass_cal)
+		{
+			mavlink_msg_command_long_send(USART1_ID, 0x01, 0x01, MAV_CMD_DO_ACCEPT_MAG_CAL, 0, system_flag.compass_select, 0, 0, 0, 0, 0, 0);  /* 发送校准数据保存指令 */
+			mavlink_msg_command_long_send(USART1_ID, 0x01, 0x01, MAV_CMD_DO_ACCEPT_MAG_CAL, 0, system_flag.compass_select, 0, 0, 0, 0, 0, 0);  /* 发送校准数据保存指令 */
+			system_flag.drone_send_compass_cal = COMPASS_CAL_SEND_SAVING;
+			command_ack_time[0] = 0;
+		}else if(COMPASS_CAL_START==system_flag.drone_send_compass_cal || COMPASS_CAL_SEND_SAVING==system_flag.drone_send_compass_cal)
 		{
 			++command_ack_time[0];
 			if(command_ack_time[0]*20>=5000) /* 5秒之后没有收到应答信号 */
 			{
 				system_flag.drone_send_compass_cal = COMPASS_CAL_OLED_PAGE;   /* 没有接受到指令应到消息*/
 				command_ack_time[0] = 0;
-				system_flag.oled_page = 8;
+				if(COMPASS_CAL_SEND_SAVING==system_flag.drone_send_compass_cal) 
+				{
+					system_flag.oled_page = 10;
+					system_flag.drone_send_compass_cal = COMPASS_CAL_COMPLETE;
+				}else
+				{
+					system_flag.oled_page = 8;
+					system_flag.drone_send_compass_cal = COMPASS_CAL_OLED_PAGE;
+				}
 			}
 		}else if(COMPASS_CAL_END==system_flag.drone_send_compass_cal)
 		{
 			command_ack_time[0] = 0;
+		}
+		
+		/* 校准错误，重新进入校准选择页面 */
+		if(COMPASS_CAL_ERROR == system_flag.drone_send_compass_cal)
+		{
+			system_flag.drone_send_compass_cal = COMPASS_CAL_OLED_PAGE;
+			system_flag.oled_page = 8;
 		}
 		
 		++count;
@@ -290,11 +313,10 @@ void usart1_rec_task(void const* argument)
 		
 		if(len>0)
 		{			
-			while(len!=0)
+			while(i<len)
 			{
 				mavlinkV1_parse(USART1_ID, buff[i]);
 				++i;
-				--len;
 			}
 		}
 	}
@@ -449,6 +471,10 @@ void button_event_task(void const* argument)
 						{
 							system_flag.drone_send_compass_cal = COMPASS_CAL_SEND;
 							system_flag.oled_page = 9;
+						}else if(COMPASS_CAL_COMPLETE==system_flag.drone_send_compass_cal && b->down_time*30<3500)
+						{
+							system_flag.drone_send_compass_cal = COMPASS_CAL_SEND_SAVE;
+							system_flag.oled_page = 9;
 						}
 					}else if(b->down_time*50>=10000)
 					{
@@ -524,7 +550,6 @@ static void system_init(void)
 	}
 	
 	init_drone_data();
-
 }
 
 /* 接收中断处理函数中调用，将接收的字节数据保存在接收循环缓冲队列中 */
@@ -607,13 +632,21 @@ void update_oled_task(void const* argument)
 	
 //	system_flag.drone_complete = 1;
 //	system_flag.mavlink_exist = 1;
-//	
+	
 	while(1)
 	{
-		if(system_flag.pre_fly_count!=system_flag.fly_count)  /* 飞行完成 */
+//		droneMagStatus[0].completion_pct = (droneMagStatus[0].completion_pct+1)%100;
+//		droneMagStatus[1].completion_pct = (droneMagStatus[1].completion_pct+1)%100;
+//		system_flag.compass_select = 2;
+//		droneMagStatus[1].compass_id = 2;
+//		droneMagStatus[0].compass_id = 1;
+		
+		
+		if(system_flag.pre_fly_count!=system_flag.fly_count && !system_flag.armed)  /* 飞行完成 */
 		{
 			system_flag.pre_fly_count = system_flag.fly_count;
 			system_flag.drone_complete = 1;
+			droneData.drone_fly_time_ms = xTaskGetTickCount() - droneData.drone_armed_time_ms;
 			if(!system_flag.armed)
 				system_flag.oled_page = 3;
 		}
@@ -690,14 +723,14 @@ void update_oled_task(void const* argument)
 						old_page = system_flag.oled_page;
 						OLED_Clear();
 						
-						display_string_Font8_16(0, 0, "Compass Cal: "); /*row0*/
-						OLED_ShowString(0, 2, "          00% 1", 8);
-						OLED_ShowString(0, 4, "          00% 2", 8);
-						OLED_ShowString(104, 1, "id", 8);
-						OLED_ShowString(0, 5, "offx: ", 8);	
-						OLED_ShowString(0, 6, "offy: ", 8);	
-						OLED_ShowString(0, 7, "offz: ", 8);	
-						display_string_Font8_16(128-4*8, 6, "----");
+						display_string_Font8_16(0, 0, "Compass Cal: ID"); /*row0*/
+						OLED_ShowString(0, 3, "          00% 1", 16);
+						OLED_ShowString(0, 6, "          00% 2", 16);
+//						OLED_ShowString(104, 1, "id", 8);
+//						OLED_ShowString(0, 5, "offx: ", 8);	
+//						OLED_ShowString(0, 6, "offy: ", 8);	
+//						OLED_ShowString(0, 7, "offz: ", 8);	
+//						display_string_Font8_16(128-4*8, 6, "----");
 					}
 					break;
 				}
@@ -791,9 +824,29 @@ void update_oled_task(void const* argument)
 							//OLED_ShowString(0, 7, "  >>", 8);
 						}
 					}
-					
 					break;
 				}
+					
+				case 10:
+				{
+					if(old_page!=system_flag.oled_page)
+					{
+						if(COMPASS_CAL_COMPLETE==system_flag.drone_send_compass_cal)
+						{
+							old_page = system_flag.oled_page;
+							OLED_Clear();
+							display_string_Font8_16(0, 0, " Cal Complete: ");
+							OLED_ShowString(0, 2, "offx1: -----    ", 8);
+							OLED_ShowString(0, 3, "offy1: -----    ", 8);
+							OLED_ShowString(0, 4, "offz1: -----    ", 8);
+							OLED_ShowString(0, 5, "offx2: -----    ", 8);
+							OLED_ShowString(0, 6, "offy2: -----    ", 8);
+							OLED_ShowString(0, 7, "offz2: -----    ", 8);
+						}
+					}
+					break;
+				}
+				
 				
 				case 9:
 				{
@@ -875,59 +928,58 @@ void update_oled_task(void const* argument)
 								int_to_string(droneMagStatus[i].completion_pct, (char*)buff, 2);
 								if(1==droneMagStatus[i].compass_id)
 								{
-									OLED_Clear_Area(80, 2, 96, 2);
-									OLED_ShowString(80, 2, buff, 8);
-									
-									if(0==droneMagStatus[i].completion_pct)
-									{
-										OLED_Clear_Area(0, 2, 80, 2);
-									}else
-									{
-										OLED_set_area(0, 2, (droneMagStatus[i].completion_pct/10)*8, 2);   
-									}
-									
-								}
-								else if(2==droneMagStatus[i].compass_id)
-								{
-									OLED_Clear_Area(80, 4, 96, 4);
-									OLED_ShowString(80, 4, buff, 8);
+									OLED_Clear_Area(80, 3, 96, 3);
+									OLED_ShowString(80, 3, buff, 16);
 									
 									if(0==droneMagStatus[i].completion_pct)
 									{
 										OLED_Clear_Area(0, 4, 80, 4);
 									}else
 									{
-										OLED_set_area(0, 4, (droneMagStatus[i].completion_pct/10)*8, 4);   
+										OLED_set_area(0, 4, (droneMagStatus[i].completion_pct/5)*4, 4);   
+									}
+									
+								}
+								else if(2==droneMagStatus[i].compass_id)
+								{
+									OLED_Clear_Area(80, 6, 96, 6);
+									OLED_ShowString(80, 6, buff, 16);
+									
+									if(0==droneMagStatus[i].completion_pct)
+									{
+										OLED_Clear_Area(0, 7, 80, 7);
+									}else
+									{
+										OLED_set_area(0, 7, (droneMagStatus[i].completion_pct/5)*4,7);   
 									}
 								}
 							}
 						}else
 						{
+							int_to_string(droneMagStatus[system_flag.compass_select-1].completion_pct, (char*)buff, 2);
 							if(1==system_flag.compass_select)
 							{
-								OLED_Clear_Area(80, 2, 96, 2);
-								OLED_ShowString(80, 2, buff, 8);
-								
-								OLED_set_area(0, 2, 10*8, 2);
-								
-								if(0==droneMagStatus[system_flag.compass_select-1].completion_pct)
-								{
-									OLED_Clear_Area(0, 2, 80, 2);
-								}else
-								{
-									OLED_set_area(0, 2, (droneMagStatus[system_flag.compass_select-1].completion_pct/10)*8, 4);   
-								}
-							}else if(2==system_flag.compass_select)
-							{
-								OLED_Clear_Area(80, 4, 96, 4);
-								OLED_ShowString(80, 4, buff, 8);
+								OLED_Clear_Area(80, 3, 96, 3);
+								OLED_ShowString(80, 3, buff, 16);
 								
 								if(0==droneMagStatus[system_flag.compass_select-1].completion_pct)
 								{
 									OLED_Clear_Area(0, 4, 80, 4);
 								}else
 								{
-									OLED_set_area(0, 4, (droneMagStatus[system_flag.compass_select-1].completion_pct/10)*8, 4);   
+									OLED_set_area(0, 4, (droneMagStatus[system_flag.compass_select-1].completion_pct/5)*4, 4);   
+								}
+							}else if(2==system_flag.compass_select)
+							{
+								OLED_Clear_Area(80, 6, 96, 6);
+								OLED_ShowString(80, 6, buff, 16);
+								
+								if(0==droneMagStatus[system_flag.compass_select-1].completion_pct)
+								{
+									OLED_Clear_Area(0, 7, 80, 7);
+								}else
+								{
+									OLED_set_area(0, 7, (droneMagStatus[system_flag.compass_select-1].completion_pct/5)*4, 7);   
 								}
 							}
 
@@ -951,7 +1003,8 @@ void update_oled_task(void const* argument)
 						
 						OLED_Clear_Area(64, 6, 128, 6);
 						/* 请加入时间计算转换字符串代码 */
-						display_string_Font8_16(64, 6, "00:00:00");
+						time_to_string(droneData.drone_fly_time_ms, (char* )buff);
+						display_string_Font8_16(64, 6, (char *)buff);
 						
 						break;
 					}
@@ -1040,6 +1093,48 @@ void update_oled_task(void const* argument)
 						break;
 					}
 					
+					case 10:
+					{
+						if(COMPASS_CAL_COMPLETE==system_flag.drone_send_compass_cal)
+						{
+							display_string_Font8_16(0, 0, " Cal Complete: ");
+							
+							if(0==system_flag.compass_select || 1==system_flag.compass_select)
+							{
+								OLED_Clear_Area(42, 2, 128, 2);
+								float_to_string(droneCompassOff[0].ofs_x, (char* )buff, 4, 1);
+								OLED_ShowString(42, 2, buff, 8);
+								
+								OLED_Clear_Area(42, 3, 128, 3);
+								float_to_string(droneCompassOff[0].ofs_y, (char* )buff, 4, 1);
+								OLED_ShowString(42, 3, buff, 8);
+								
+								OLED_Clear_Area(42, 4, 128, 4);
+								float_to_string(droneCompassOff[0].ofs_z, (char* )buff, 4, 1);
+								OLED_ShowString(42, 4, buff, 8);
+							}
+							
+							if(0==system_flag.compass_select || 2==system_flag.compass_select)
+							{
+								OLED_Clear_Area(42, 5, 128, 5);
+								float_to_string(droneCompassOff[1].ofs_x, (char* )buff, 4, 1);
+								OLED_ShowString(42, 5, buff, 8);							
+								
+								OLED_Clear_Area(42, 6, 128, 6);
+								float_to_string(droneCompassOff[1].ofs_y, (char* )buff, 4, 1);
+								OLED_ShowString(42, 6, buff, 8);
+								
+								OLED_Clear_Area(42, 7, 128, 7);
+								float_to_string(droneCompassOff[1].ofs_z, (char* )buff, 4, 1);
+								OLED_ShowString(42, 7, buff, 8);
+							}
+							
+							system_flag.drone_send_compass_cal = COMPASS_CAL_WAIT_SAVE; /* 等待保存 */
+
+						}
+						break;
+					}
+					
 					default: break;
 				}
 			}
@@ -1121,10 +1216,14 @@ static unsigned char mavlinkV1_parse(uint8_t chan, uint8_t c)
 				droneHeatbeat.mavlink_version = mavlink_msg_heartbeat_get_mavlink_version(&r_message); /*< MAVLink version, not writable by user, gets added by protocol because of magic data type: uint8_t_mavlink_version*/
 				system_flag.mavlink_exist = 1; /* 通道中识别到心跳包，mavlink数据有效 */
 				system_flag.init_loader = 0;   /* 跳过启动界面 */
-				if((droneHeatbeat.base_mode & MAV_MODE_FLAG_SAFETY_ARMED)&&(system_flag.fly_count==system_flag.pre_fly_count))
+				if(droneHeatbeat.base_mode & MAV_MODE_FLAG_SAFETY_ARMED)
 				{
 					system_flag.armed = 1;
-					++system_flag.fly_count;
+					if(system_flag.fly_count==system_flag.pre_fly_count)
+					{
+						++system_flag.fly_count;
+						droneData.drone_armed_time_ms = xTaskGetTickCount();  /* 解锁当前时间 */
+					}
 				}else
 				{
 					system_flag.armed = 0;
@@ -1254,6 +1353,8 @@ static unsigned char mavlinkV1_parse(uint8_t chan, uint8_t c)
 			{
 				uint16_t command = mavlink_msg_command_ack_get_command(&r_message); /*< Command ID, as defined by MAV_CMD enum.*/
 				uint8_t result = mavlink_msg_command_ack_get_result(&r_message); /*< See MAV_RESULT enum*/
+				
+				command_ack_pro(command, result);
 				break;
 			}
 			
@@ -1312,17 +1413,43 @@ static unsigned char mavlinkV1_parse(uint8_t chan, uint8_t c)
 				droneMagStatus[id-1].cal_mask = droneMagCalPro.cal_mask;
 				droneMagStatus[id-1].completion_pct = droneMagCalPro.completion_pct;
 				
+				if( (!system_flag.compass_select && (MAG_CAL_FAILED==droneMagStatus[0].cal_status || MAG_CAL_FAILED==droneMagStatus[1].cal_status)) \
+						|| (1==system_flag.compass_select && MAG_CAL_FAILED==droneMagStatus[0].cal_status) \
+						|| (2==system_flag.compass_select && MAG_CAL_FAILED==droneMagStatus[1].cal_status) ) /* 罗盘校准失败 */
+				{
+					system_flag.drone_send_compass_cal = COMPASS_CAL_ERROR;
+				}
+				
 				break;
 			}
 			
 			/* #192 磁罗盘校准反馈报告 */
 			case MAVLINK_MSG_ID_MAG_CAL_REPORT:
-			{				
+			{	
+				if(COMPASS_CAL_COMPLETE == system_flag.drone_send_compass_cal)
+				{
+					break;
+				}
 				mavlink_msg_mag_cal_report_decode(&r_message, droneData.pMagCalReport);
-				if(COMPASS_CAL_PROING==system_flag.drone_send_compass_cal)   /* 磁罗盘校准成功 */
+				if(droneData.pMagCalReport->cal_status==MAG_CAL_SUCCESS)
+				{
+					/* 保存磁罗盘数据 */
+					droneCompassOff[droneData.pMagCalReport->compass_id-1].ofs_x = droneData.pMagCalReport->ofs_x;
+					droneCompassOff[droneData.pMagCalReport->compass_id-1].ofs_y = droneData.pMagCalReport->ofs_y;
+					droneCompassOff[droneData.pMagCalReport->compass_id-1].ofs_z = droneData.pMagCalReport->ofs_z;
+					
+					droneMagStatus[droneData.pMagCalReport->compass_id-1].cal_status = COMPASS_CAL_COMPLETE;
+				}
+				
+				if( (!system_flag.compass_select && (COMPASS_CAL_COMPLETE==droneMagStatus[0].cal_status || COMPASS_CAL_COMPLETE==droneMagStatus[1].cal_status)) \
+						|| (1==system_flag.compass_select && COMPASS_CAL_COMPLETE==droneMagStatus[0].cal_status) \
+						|| (2==system_flag.compass_select && COMPASS_CAL_COMPLETE==droneMagStatus[1].cal_status) ) /* 罗盘校准成功 */
 				{
 					system_flag.drone_send_compass_cal = COMPASS_CAL_COMPLETE;
-				}
+				}else
+				{
+					system_flag.drone_send_compass_cal = COMPASS_CAL_ERROR;  /* 校准错误 */
+				}	
 				
 				break;
 			}
@@ -1977,6 +2104,19 @@ static void beep_switch(void)
 								break;
 				}
 				return;
+				
+		 case 5:
+			if(count*100>=5000)
+			{
+				reset_beep();
+				bzClass = 0;
+				count = 0;
+			}else
+			{
+				set_beep();
+			}
+			return;
+							
 		default:
 				// do nothing
 				break;
@@ -2013,6 +2153,12 @@ static void beep_switch(void)
 	// if battery failsafe constantly single buzz
 	if (fail_status.failsafe_battery) {  /* AP_Notify::flags.failsafe_battery */
 			bzClass = 1;
+	}
+	
+	if(system_flag.drone_compass_cal_sucess)
+	{
+		bzClass = 5;
+		system_flag.drone_compass_cal_sucess = 0;
 	}
 	
 }
@@ -2104,7 +2250,7 @@ static void mav_status_text_pro(mavlink_statustext_t *statusText)
 	
 }
 
-static void commadn_ack_pro(uint16_t command, uint8_t result)
+static void command_ack_pro(uint16_t command, uint8_t result)
 {
 	switch(command)
 	{
@@ -2122,7 +2268,44 @@ static void commadn_ack_pro(uint16_t command, uint8_t result)
 			break;
 		}
 		
+		case MAV_CMD_DO_ACCEPT_MAG_CAL:   /* 保存校准数据指令 */
+		{
+			if(MAV_RESULT_ACCEPTED==result)
+			{
+				system_flag.oled_page = 1;
+				system_flag.drone_compass_cal_sucess = 1;
+			}else
+			{
+				system_flag.drone_send_compass_cal = COMPASS_CAL_OLED_PAGE;
+				system_flag.oled_page = 8;
+			}
+			break;
+		}
+		
 		default: break;
 	}
 }
 
+static void time_to_string(uint32_t ms, char* buff)
+{
+	unsigned char hour; 
+	unsigned char min;
+	unsigned char second;
+	char buf[9];
+	
+	if(0==buff) return;
+	
+	hour = ms/3600000;
+	min = (ms/1000)%3600;
+	second = (ms/1000)%60;
+	
+	int_to_string(hour, (char*)buf[0], 2);
+	buf[2] = ':';
+	int_to_string(min, (char*)buf[3], 2);
+	buf[5] = ':';
+	int_to_string(min, (char*)buf[6], 2);
+	buf[8] = '\0';
+	
+	copy_string(buff, buf, 9); 
+	
+}

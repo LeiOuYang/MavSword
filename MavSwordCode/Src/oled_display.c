@@ -158,7 +158,7 @@ void display_north(unsigned char x, unsigned char y)
 }
 
 
-static void copy_string(char* dest,char *src,unsigned int num) 
+void copy_string(char* dest,char *src,unsigned int num) 
 { 
 	if(dest!=0&&src!=0)
 	{ while(num--&&'\0'!=*src)

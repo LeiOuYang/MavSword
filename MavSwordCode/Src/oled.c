@@ -460,12 +460,12 @@ void OLED_Init(void)
 //	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//速度50MHz
 // 	GPIO_Init(GPIOB, &GPIO_InitStructure);	  //初始化GPIOD3,6
 // 	GPIO_SetBits(GPIOB,GPIO_Pin_6|GPIO_Pin_7);	
-	
+
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
 
 	//delay_ms(100);
-	osDelay(200);
+	osDelay(100);
 	OLED_WR_Byte(0xAE,OLED_CMD);//--display off
 	OLED_WR_Byte(0x00,OLED_CMD);//---set low column address
 	OLED_WR_Byte(0x10,OLED_CMD);//---set high column address

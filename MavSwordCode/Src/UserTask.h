@@ -17,6 +17,12 @@
 	#define OLED_PAGE1_UPDATE_VALID  		(1<<1)
 	#define OLED_PAGE1_UPDATE_INVALID		(~(1<<1))	
 	
+	typedef struct _drone_compass_off
+	{
+		float ofs_x; /*< X offset*/
+		float ofs_y; /*< Y offset*/
+		float ofs_z; /*< Z offset*/
+	}DroneCompassOff;
 	typedef struct _drone_mag_status
 	{
 		uint8_t compass_id; /*< Compass being calibrated*/
@@ -24,6 +30,7 @@
 		uint8_t cal_status; /*< Status (see MAG_CAL_STATUS enum)*/
 		uint8_t attempt; /*< Attempt number*/
 		uint8_t completion_pct;
+		uint8_t compass_status;  /* 校准完成标志 */
 	}DroneMagStatus;
 	
 	typedef struct _drone_current
@@ -190,6 +197,8 @@
 		mavlink_statustext_t* pStatusText;
 		
 		uint32_t drone_time_boot_ms;
+		uint32_t drone_armed_time_ms;
+		uint32_t drone_fly_time_ms;
 		float compass_variance;
 		uint16_t flags;		
 		int16_t temperature;
@@ -234,6 +243,7 @@
 		unsigned char mavlink_exist:1;  /* mavlink数据，常亮蓝灯 */
 		unsigned char mavlink_valid:1;  /* mavlink中的状态数据有效 */
 		unsigned char drone_complete:1; /* 1-飞行完成 */
+		unsigned char drone_compass_cal_sucess:1;
 		unsigned char drone_send_compass_cal; 
 		unsigned char test_mask_bit;        /*  */
 		unsigned char oled_page; 			/* OLED显示页 0-加载页面   1-基本信息页面 */
@@ -249,7 +259,11 @@
 		COMPASS_CAL_SEND,
 		COMPASS_CAL_START,
 		COMPASS_CAL_PROING,
-		COMPASS_CAL_COMPLETE
+		COMPASS_CAL_COMPLETE,
+		COMPASS_CAL_WAIT_SAVE,
+		COMPASS_CAL_SEND_SAVE,
+		COMPASS_CAL_SEND_SAVING,
+		COMPASS_CAL_ERROR,
 	}CompassStatus;
 	
 	/* 无人机系统报错标志，1为有效 */
@@ -306,6 +320,8 @@
 	static void mav_ekf_report_pro(DroneData *pdd);
 	static void mav_status_text_pro(mavlink_statustext_t *statusText);
 	static void mav_sys_status_pro(DroneSysStatus *pds);
+	static void command_ack_pro(uint16_t command, uint8_t result);
+	static void time_to_string(uint32_t ms, char* buff);
 	
 	extern void usart_send(unsigned char id, char* pc, unsigned int len);
 	extern IWDG_HandleTypeDef hiwdg;

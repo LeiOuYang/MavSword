@@ -32,7 +32,7 @@
 	void display_north(unsigned char x, unsigned char y);
 	void display_logo(void);
 
-	static void copy_string(char* dest,char *src,unsigned int num);
+	void copy_string(char* dest,char *src,unsigned int num);
 	unsigned char int_to_string(int value, char* buff, unsigned int num);
 	unsigned char float_to_string(double value, char* buff, unsigned int num, unsigned int dotNum);
 	static int pow_int(int num, int i);

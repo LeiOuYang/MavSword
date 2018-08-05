@@ -1,6 +1,6 @@
 Dependencies for Project 'MavSword', Target 'MavSword': (DO NOT MODIFY !)
 F (startup_stm32f103xb.s)(0x5B53E33D)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1" -I..\\Inc-I D:\GithubPro\MavSword\MavSwordCode\MDK-ARM\RTE-I D:\APP\Major\keil513\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\APP\Major\keil513\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0--pd "__UVISION_VERSION SETA 513" --pd "_RTE_ SETA 1" --pd "STM32F10X_MD SETA 1"--list startup_stm32f103xb.lst --xref -o mavsword\startup_stm32f103xb.o --depend mavsword\startup_stm32f103xb.d)
-F (../Src/main.c)(0x5B53EB4B)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Drivers/CMSIS/Include -I..\Src -I..\MavlinkV1 -I..\MavlinkV1\common-I D:\GithubPro\MavSword\MavSwordCode\MDK-ARM\RTE-I D:\APP\Major\keil513\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\APP\Major\keil513\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o mavsword\main.o --omf_browse mavsword\main.crf --depend mavsword\main.d)
+F (../Src/main.c)(0x5B630BE3)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Drivers/CMSIS/Include -I..\Src -I..\MavlinkV1 -I..\MavlinkV1\common-I D:\GithubPro\MavSword\MavSwordCode\MDK-ARM\RTE-I D:\APP\Major\keil513\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\APP\Major\keil513\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o mavsword\main.o --omf_browse mavsword\main.crf --depend mavsword\main.d)
 I (../Inc/main.h)(0x5B53E337)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x5B4F3CB3)
 I (../Inc/stm32f1xx_hal_conf.h)(0x5B53E336)
@@ -43,7 +43,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x5B4F3C95)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x5B4F3C95)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x5B4F3C95)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x5B4F3C95)
-I (../Src/UserTask.h)(0x5B61C837)
+I (../Src/UserTask.h)(0x5B6682C3)
 I (../Src/HardwareConfig.h)(0x5B59D774)
 I (../Src/ButtonDriver.h)(0x5B53EB2C)
 I (..\MavlinkV1\common\mavlink.h)(0x5B54727F)
@@ -394,8 +394,8 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x5B4F3CB3)
 I (..\Src\ButtonDriver.h)(0x5B53EB2C)
 F (..\Src\LoopQueue.c)(0x5B4F4D1B)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Drivers/CMSIS/Include -I..\Src -I..\MavlinkV1 -I..\MavlinkV1\common-I D:\GithubPro\MavSword\MavSwordCode\MDK-ARM\RTE-I D:\APP\Major\keil513\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\APP\Major\keil513\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o mavsword\loopqueue.o --omf_browse mavsword\loopqueue.crf --depend mavsword\loopqueue.d)
 I (..\Src\LoopQueue.h)(0x5B2A5D39)
-F (..\Src\oled.c)(0x5B61C5EF)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Drivers/CMSIS/Include -I..\Src -I..\MavlinkV1 -I..\MavlinkV1\common-I D:\GithubPro\MavSword\MavSwordCode\MDK-ARM\RTE-I D:\APP\Major\keil513\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\APP\Major\keil513\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o mavsword\oled.o --omf_browse mavsword\oled.crf --depend mavsword\oled.d)
-I (..\Src\oled.h)(0x5B61C196)
+F (..\Src\oled.c)(0x5B630DAC)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Drivers/CMSIS/Include -I..\Src -I..\MavlinkV1 -I..\MavlinkV1\common-I D:\GithubPro\MavSword\MavSwordCode\MDK-ARM\RTE-I D:\APP\Major\keil513\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\APP\Major\keil513\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o mavsword\oled.o --omf_browse mavsword\oled.crf --depend mavsword\oled.d)
+I (..\Src\oled.h)(0x5B630A70)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x5B4F3CB3)
 I (../Inc/stm32f1xx_hal_conf.h)(0x5B53E336)
 I (../Inc/main.h)(0x5B53E337)
@@ -440,9 +440,9 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x5B4F3C95)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x5B4F3C95)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x5B4F3C95)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x5B4F3C95)
-F (..\Src\oled_display.c)(0x5B55F823)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Drivers/CMSIS/Include -I..\Src -I..\MavlinkV1 -I..\MavlinkV1\common-I D:\GithubPro\MavSword\MavSwordCode\MDK-ARM\RTE-I D:\APP\Major\keil513\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\APP\Major\keil513\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o mavsword\oled_display.o --omf_browse mavsword\oled_display.crf --depend mavsword\oled_display.d)
-I (..\Src\oled_display.h)(0x5B544638)
-I (..\Src\oled.h)(0x5B61C196)
+F (..\Src\oled_display.c)(0x5B66841A)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Drivers/CMSIS/Include -I..\Src -I..\MavlinkV1 -I..\MavlinkV1\common-I D:\GithubPro\MavSword\MavSwordCode\MDK-ARM\RTE-I D:\APP\Major\keil513\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\APP\Major\keil513\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o mavsword\oled_display.o --omf_browse mavsword\oled_display.crf --depend mavsword\oled_display.d)
+I (..\Src\oled_display.h)(0x5B6682DF)
+I (..\Src\oled.h)(0x5B630A70)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x5B4F3CB3)
 I (../Inc/stm32f1xx_hal_conf.h)(0x5B53E336)
 I (../Inc/main.h)(0x5B53E337)
@@ -474,8 +474,8 @@ I (D:\APP\Major\keil513\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 F (..\Src\UsartDriver.c)(0x5B4F528F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Drivers/CMSIS/Include -I..\Src -I..\MavlinkV1 -I..\MavlinkV1\common-I D:\GithubPro\MavSword\MavSwordCode\MDK-ARM\RTE-I D:\APP\Major\keil513\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\APP\Major\keil513\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o mavsword\usartdriver.o --omf_browse mavsword\usartdriver.crf --depend mavsword\usartdriver.d)
 I (..\Src\UsartDriver.h)(0x5B5471BA)
 I (..\Src\LoopQueue.h)(0x5B2A5D39)
-F (..\Src\UserTask.c)(0x5B61D19E)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Drivers/CMSIS/Include -I..\Src -I..\MavlinkV1 -I..\MavlinkV1\common-I D:\GithubPro\MavSword\MavSwordCode\MDK-ARM\RTE-I D:\APP\Major\keil513\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\APP\Major\keil513\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o mavsword\usertask.o --omf_browse mavsword\usertask.crf --depend mavsword\usertask.d)
-I (..\Src\UserTask.h)(0x5B61C837)
+F (..\Src\UserTask.c)(0x5B6683E6)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Drivers/CMSIS/Include -I..\Src -I..\MavlinkV1 -I..\MavlinkV1\common-I D:\GithubPro\MavSword\MavSwordCode\MDK-ARM\RTE-I D:\APP\Major\keil513\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I D:\APP\Major\keil513\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o mavsword\usertask.o --omf_browse mavsword\usertask.crf --depend mavsword\usertask.d)
+I (..\Src\UserTask.h)(0x5B6682C3)
 I (..\Src\HardwareConfig.h)(0x5B59D774)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x5B4F3CB3)
 I (../Inc/stm32f1xx_hal_conf.h)(0x5B53E336)
@@ -721,9 +721,9 @@ I (..\MavlinkV1\common\../ardupilotmega/../uAvionix/uAvionix.h)(0x59B4D69D)
 I (..\Src\AdcDriver.h)(0x5B54467E)
 I (..\Src\UsartDriver.h)(0x5B5471BA)
 I (..\Src\LoopQueue.h)(0x5B2A5D39)
-I (..\Src\oled.h)(0x5B61C196)
+I (..\Src\oled.h)(0x5B630A70)
 I (D:\APP\Major\keil513\ARM\ARMCC\include\stdlib.h)(0x5475F300)
-I (..\Src\oled_display.h)(0x5B544638)
+I (..\Src\oled_display.h)(0x5B6682DF)
 F (..\MavlinkV1\common\mavlink_msg_command_long.h)(0x59B4D69C)()
 F (..\MavlinkV1\mavlink_helpers.h)(0x5B54991F)()
 F (..\MavlinkV1\common\mavlink_msg_command_ack.h)(0x59B4D69C)()
