@@ -8,10 +8,21 @@
 #include "ButtonDriver.h"
 #include "stm32f1xx_hal.h"
 
-#define HARDWARE_CORE "HV: STM32F103C8T6 MavSwordV1.0\r\n"
-#define SOFTWARE_VERSION "SV: RTOS-V1.0\r\n"
-#define DESCRIPT_STRING "Desc: Designed by Awesome OY\r\n"
+static void save_param(UserData *param);
+static void read_param(UserData *param);
+static uint8_t check_serial_baudrate(uint32_t br);
+static unsigned char system_test(void);
+
+#define HARDWARE_CORE "HV: STM32F103C8T6 MavSwordV1.0\n"
+#define SOFTWARE_VERSION "SV: RTOS-V1.0\n"
+#define DESCRIPT_STRING "Desc: Designed by Awesome OY\n"
+#define MCU_FLASH_STRING "Flash Size: "
 #define BUTTON_TASK_ERROR "ERROR: button task error!"
+
+#define USER_VALUE_FLASH_PAGE_START_ADDR ADDR_FLASH_PAGE_63  /* 起始地址 */
+#define USER_USART_BAUDRATE_START_ADDR (USER_VALUE_FLASH_PAGE_START_ADDR)    /* 波特率占用四个字节 */
+
+#define read_mcu_flash_size() (*((uint16_t*)(0x1FFFF7E0)))
 
 osThreadId run_led_task_handle;
 osThreadId status_led_task_handle;
@@ -34,8 +45,13 @@ static unsigned char run_led_enbale = 1;
 
 static SystemFlag system_flag ;
 static FailStatus fail_status;
+static unsigned char system_test_falg = 0;
+static UserData userData = { 9600 };
 
 mavlink_system_t gcs_mavlink_system = {0xff,0xbe};
+
+const uint32_t baudrate_array[13] = { 2400, 4800, 9600, 19200, 38400, 43000, 56000, 57600, 115200, 230400, 460800, 921600, 2250000};
+static uint32_t serial1_baudrate = 115200;
 
 /* 飞行数据缓存 */
 DroneMagStatus droneMagStatus[2];
@@ -64,6 +80,7 @@ DroneCurrent droneCurrent;
 
 void app_run(void)
 {
+	  char buff[15] = {0};
 		init_hardware();
 		system_init();
 	
@@ -74,9 +91,19 @@ void app_run(void)
 			write(USART1_ID, (char*)BUTTON_TASK_ERROR, sizeof(BUTTON_TASK_ERROR)/sizeof(char));
 		}
 	
-		write(USART1_ID, (char*)HARDWARE_CORE, sizeof(HARDWARE_CORE)/sizeof(char));
-		write(USART1_ID, (char*)SOFTWARE_VERSION, sizeof(SOFTWARE_VERSION)/sizeof(char));
-		write(USART1_ID, (char*)DESCRIPT_STRING, sizeof(DESCRIPT_STRING)/sizeof(char));
+		write(USART1_ID, (char*)HARDWARE_CORE, sizeof(HARDWARE_CORE)/sizeof(char)-1);
+		write(USART1_ID, (char*)SOFTWARE_VERSION, sizeof(SOFTWARE_VERSION)/sizeof(char)-1);
+		write(USART1_ID, (char*)MCU_FLASH_STRING, sizeof(MCU_FLASH_STRING)/sizeof(char)-1);
+		int_to_string(read_mcu_flash_size(), (char*)buff, 3);
+		write(USART1_ID, buff, strlen(buff));
+		write(USART1_ID, "KB\n", 3);		
+		write(USART1_ID, (char*)DESCRIPT_STRING, sizeof(DESCRIPT_STRING)/sizeof(char)-1);		
+		
+		if( 0x55 == *(uint16_t*)(USER_USART_BAUDRATE_START_ADDR+4) )
+			write(USART1_ID, "OK 0x55\n", strlen("OK 0x55\n"));
+		
+		save_param(&userData);
+		read_param(&userData);
 	
 		/* 系统LED闪烁任务 */
 	  osThreadDef(RunLedThread, run_led_task, osPriorityIdle, 0, 128);
@@ -125,33 +152,67 @@ void app_run(void)
 */
 void rgb_led_task(void const * argument)
 {
+	unsigned char count = 0;
 	RGB1_Close();
 	RGB2_Close();
 	
 	while(1)
 	{
 		osDelay(100);   //10HZ 
-		rgb_switch();
+		++count;		
+		if(system_test_falg && count%10==0)
+		{
+			if(system_test())
+			{
+				system_test_falg = 0;
+			}
+		}
+		if(!system_test_falg)
+			rgb_switch();
 	}
 
 }
 
 void run_led_task(void const * argument)
 {
+	uint32_t count = 0;
+	uint8_t i = 0;
 	reset_run_led();		
 	while(1)
 	{
 		if(1==run_led_enbale)
 		{
 			set_run_led();
-			osDelay(20);
+			osDelay(50);
 			reset_run_led();
-			osDelay(800);
+			osDelay(950);
 		}
 		else
 		{
 			reset_run_led();
 		}
+		++count;
+		if(0==count%5)  /* 每5秒自动改变串口波特率，知道串口数据有效 */
+		{
+			count = 0;
+			if(!system_flag.mavlink_exist) /* 没有收到Mavlink数据 */
+			{
+				++i;
+				if(i>=13) i = 0;
+				set_usart_baudrate(&huart1, baudrate_array[i]);
+				serial1_baudrate = baudrate_array[i];
+				userData.baudrate = baudrate_array[i];		
+				usartClearRxBuff(USART1_ID);
+				usartClearTxBuff(USART1_ID);
+				initUsartIT(&huart1);
+			}
+		}
+		
+		/* 存在mavlink数据包，但是之前保存的波特率不等于目前的波特率，则保存当前波特率 */
+		if(system_flag.mavlink_exist && (*(uint32_t*)(USER_USART_BAUDRATE_START_ADDR)!=userData.baudrate) )
+		{
+			save_param(&userData);
+		}		
 	}
 }
 
@@ -308,7 +369,10 @@ void usart1_rec_task(void const* argument)
 	{
 		osDelay(20);
 		
-		len = read(USART1_ID, (char*)buff, 512);
+		len = read(USART1_ID, (char*)buff, 512); /* 获取串口缓冲区中的数据 */
+//		xSemaphoreTake( usart1_send_mutex, portMAX_DELAY );			
+//		write(USART1_ID, (char*)buff, len);			
+//		xSemaphoreGive(usart1_send_mutex);
 		i = 0;
 		
 		if(len>0)
@@ -476,10 +540,11 @@ void button_event_task(void const* argument)
 							system_flag.drone_send_compass_cal = COMPASS_CAL_SEND_SAVE;
 							system_flag.oled_page = 9;
 						}
-					}else if(b->down_time*50>=10000)
+					}else if(b->down_time*50>=5000)
 					{
 						/* 处理事件 */
-						//system_flag.beep_enable = 0;
+						if(!system_test_falg)
+							system_test_falg = 1;
 					}
 				}
 			}
@@ -1203,6 +1268,8 @@ static unsigned char mavlinkV1_parse(uint8_t chan, uint8_t c)
 	
 	if(MAVLINK_FRAMING_OK==parse_result)
 	{
+		system_flag.mavlink_exist = 1; /* 成功收到mavlink数据*/
+		
 		switch(r_message.msgid)
 		{
 			/* #0  心跳包 */
@@ -1214,8 +1281,8 @@ static unsigned char mavlinkV1_parse(uint8_t chan, uint8_t c)
 				droneHeatbeat.autopilot = mavlink_msg_heartbeat_get_autopilot(&r_message); /*< Autopilot type / class. defined in MAV_AUTOPILOT ENUM*/
 				droneHeatbeat.system_status = mavlink_msg_heartbeat_get_system_status(&r_message); /*< System status flag, see MAV_STATE ENUM*/
 				droneHeatbeat.mavlink_version = mavlink_msg_heartbeat_get_mavlink_version(&r_message); /*< MAVLink version, not writable by user, gets added by protocol because of magic data type: uint8_t_mavlink_version*/
-				system_flag.mavlink_exist = 1; /* 通道中识别到心跳包，mavlink数据有效 */
 				system_flag.init_loader = 0;   /* 跳过启动界面 */
+				
 				if(droneHeatbeat.base_mode & MAV_MODE_FLAG_SAFETY_ARMED)
 				{
 					system_flag.armed = 1;
@@ -2309,3 +2376,125 @@ static void time_to_string(uint32_t ms, char* buff)
 	copy_string(buff, buf, 9); 
 	
 }
+
+/* 设置串口波特率 */
+static void set_usart_baudrate(UART_HandleTypeDef* usartHandle, uint32_t baudrate)
+{
+	if(0==usartHandle) return;
+  usartHandle->Init.BaudRate = baudrate;
+
+  if (HAL_UART_Init(usartHandle) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+}
+
+static void save_param(UserData *param)
+{
+	FLASH_EraseInitTypeDef EraseInitStruct;
+	uint32_t Address = 0, PAGEError = 0;
+	
+	if(0==param) return;
+	
+	portENTER_CRITICAL();
+	HAL_FLASH_Unlock();
+	
+	EraseInitStruct.TypeErase   = FLASH_TYPEERASE_PAGES;
+  EraseInitStruct.PageAddress = USER_USART_BAUDRATE_START_ADDR;
+  EraseInitStruct.NbPages     = 1;
+	HAL_FLASHEx_Erase(&EraseInitStruct, &PAGEError);
+	
+	Address = USER_USART_BAUDRATE_START_ADDR;
+  HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, Address, param->baudrate);   
+	HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, USER_USART_BAUDRATE_START_ADDR+4, 0x55);
+	
+	HAL_FLASH_Lock();
+	portEXIT_CRITICAL();
+	
+	if(param->baudrate!=*(__IO uint32_t *)USER_USART_BAUDRATE_START_ADDR || *(uint16_t*)(USER_USART_BAUDRATE_START_ADDR+4)!=0x55)
+	{
+		//保存错误
+	}
+}
+
+static void read_param(UserData *param)
+{
+	if(0==param) return;
+	
+	if( 0x55 == *(uint16_t*)(USER_USART_BAUDRATE_START_ADDR+4) )
+	{
+		param->baudrate = *(__IO uint32_t*)USER_USART_BAUDRATE_START_ADDR;
+		if(!check_serial_baudrate(param->baudrate))
+		{
+			param->baudrate = 9600;
+			save_param(param);
+		}
+	}
+	else
+		save_param(param);
+}
+
+static uint8_t check_serial_baudrate(uint32_t br)
+{
+	uint8_t b = 0;
+	uint8_t i = 0;
+	
+	if(0==br || 0x0ffff==br) return 0;
+	
+	for(i=0; i<sizeof(baudrate_array)/sizeof(uint32_t); ++i)
+	{
+		if(br==baudrate_array[i]) 
+		{
+			b = 1;
+			break;
+		}
+	}
+	
+	return b;		
+}
+
+/* 系统自检测试RGB灯，蜂鸣器，1S调用一次改函数
+** 红-绿-蓝循环闪烁2次，每次间隔1s
+** 蜂鸣器常响3S
+** 
+*/
+static unsigned char system_test(void)
+{
+	static unsigned char step = 0;
+	++step;
+	
+	switch(step)
+	{
+		case 1:
+		case 7:
+			RGB1_Red();
+			RGB2_Red();
+			break;
+		case 3:
+		case 9:
+			RGB1_Green();
+			RGB2_Green();
+			break;
+		case 5:
+		case 11:
+			RGB1_Blue();
+			RGB2_Blue();
+			break;
+		default: break;
+	}
+	
+	if(step>=11 && step<14)
+		set_beep();
+	
+	if(step>=14)
+	{
+		reset_beep();
+		RGB1_Close();
+		RGB2_Close();
+		step = 0;
+		return 1;
+	}
+	return 0;
+}
+
+

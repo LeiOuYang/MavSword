@@ -17,6 +17,11 @@
 	#define OLED_PAGE1_UPDATE_VALID  		(1<<1)
 	#define OLED_PAGE1_UPDATE_INVALID		(~(1<<1))	
 	
+	typedef struct _user_data
+	{
+		uint32_t baudrate;     /*  ÅäÖÃ²¨ÌØÂÊ */
+	}UserData;
+	
 	typedef struct _drone_compass_off
 	{
 		float ofs_x; /*< X offset*/
@@ -322,6 +327,7 @@
 	static void mav_sys_status_pro(DroneSysStatus *pds);
 	static void command_ack_pro(uint16_t command, uint8_t result);
 	static void time_to_string(uint32_t ms, char* buff);
+	static void set_usart_baudrate(UART_HandleTypeDef* usartHandle, uint32_t baudrate);
 	
 	extern void usart_send(unsigned char id, char* pc, unsigned int len);
 	extern IWDG_HandleTypeDef hiwdg;

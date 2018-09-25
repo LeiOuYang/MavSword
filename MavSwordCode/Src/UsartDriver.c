@@ -234,6 +234,40 @@ LoopQueue* getUsartRecLoopQueue(unsigned char id)
 	return 0;
 }
 
+void usartClearRxBuff(unsigned char id)
+{
+	if(id>=USART_MAX_ID)
+		return ;
+	
+	if(USART1_ID==id)
+	{
+		clearLoopQueue(&usart1_rec_queue);
+	}else if(USART2_ID==id)
+	{
+
+	}else if(USART3_ID==id)
+	{
+
+	}
+}
+
+void usartClearTxBuff(unsigned char id)
+{
+	if(id>=USART_MAX_ID)
+		return ;
+	
+	if(USART1_ID==id)
+	{
+		clearLoopQueue(&usart1_send_queue);
+	}else if(USART2_ID==id)
+	{
+
+	}else if(USART3_ID==id)
+	{
+
+	}
+}
+
 /* stm32f1xx_hal_uart.h文件中修改函数 UART_Receive_IT */
 
 //static HAL_StatusTypeDef UART_Receive_IT(UART_HandleTypeDef *huart)
