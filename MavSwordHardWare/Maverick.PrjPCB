@@ -121,7 +121,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=OFUIOAEK
+DocumentUniqueId=LOSKQYXY
 
 [Document6]
 DocumentPath=MavSword_V1.0.SchDoc
@@ -343,11 +343,6 @@ OutputName23=VHDL File
 OutputDocumentPath23=
 OutputVariantName23=
 OutputDefault23=0
-OutputType24=WBSENetlistGeneration
-OutputName24=WEBENCH Simulation Engine
-OutputDocumentPath24=
-OutputVariantName24=
-OutputDefault24=0
 
 [OutputGroup2]
 Name=Simulator Outputs
@@ -359,11 +354,6 @@ OutputName1=Mixed Sim
 OutputDocumentPath1=
 OutputVariantName1=
 OutputDefault1=0
-OutputType2=WBSENetlist
-OutputName2=WEBENCH Simulation Engine
-OutputDocumentPath2=
-OutputVariantName2=
-OutputDefault2=0
 
 [OutputGroup3]
 Name=Documentation Outputs
