@@ -158,6 +158,23 @@ GenerateClassCluster=0
 DocumentUniqueId=OFUIOAEK
 
 [Document8]
+DocumentPath=hotV1.1.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=YVPIIVUW
+
+[Document9]
 DocumentPath=Car.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -174,11 +191,32 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=GPXNXGFR
 
+[Document10]
+DocumentPath=hotV1.1.PcbDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=IKAJYDTJ
+
 [GeneratedDocument1]
-DocumentPath=Project Outputs for Maverick\Design Rule Check - Maverick_V1.html
+DocumentPath=Project Outputs for Maverick\Design Rule Check - car_V1.html
 DItemRevisionGUID=
 
 [GeneratedDocument2]
+DocumentPath=Project Outputs for Maverick\Design Rule Check - Maverick_V1.html
+DItemRevisionGUID=
+
+[GeneratedDocument3]
 DocumentPath=Project Outputs for Maverick\Maverick.xls
 DItemRevisionGUID=
 
